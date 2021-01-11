@@ -31,10 +31,10 @@ cat(knitr::knit_child("/sub/chemly.Rmd", quiet=TRUE))
 
 
 Soil samples of all treatment plots at the tillering and stem-elongation phase of winter-wheat crop were analyzed for their contents vital for crop and microorganisms growth. Nitrogen of wet soil samples were extracted by $\mathrm{KCl}$ from wet soil samples. Nitrate ($\mathrm{NO_3^-}$) and ammonia ($\mathrm{NH_4^+}$) were measured by ion-chromatography. 
-Nitrate and ammonia concentrations are the highest (averaging at ~ 4 mg per 100g soil) in the fertilized plots at the first timepoint (Figure \@ref{fig:soilnitatmo}). Although both received the same amount of fertilizer (40 + 80 kg $\frac{CAN}{ha}$), the fully treated plots have half of the nitrate and ammonia concentration compared to the fertilized only plots. At the second sampling, the concentration dropped below 1 mg per 100g wet soil for both treatments on average. Concentration of nitrate decreased slightly more than ammonia. 
+Nitrate and ammonia concentrations are the highest (averaging at ~ 4 mg per 100g soil) in the fertilized plots at the first timepoint (Figure \@ref(fig:soilnitatmo)). Although both received the same amount of fertilizer (40 + 80 kg $\frac{CAN}{ha}$), the fully treated plots have half of the nitrate and ammonia concentration compared to the fertilized only plots. At the second sampling, the concentration dropped below 1 mg per 100g wet soil for both treatments on average. Concentration of nitrate decreased slightly more than ammonia. 
 Without fertilization, the concentration of nitrate and ammonia was low and did not exceed 0.26 mg per 100g wet soil at both timepoints. At the first timepoint the nitrate concentration is higher while at the second timepoint the ammonium concentration is higher.  
-Total carbon and nitrogen concentration was measured in air-dried soil samples at the first timepoint. Total carbon concentrations are in a similar range across all treatments (0.78-0.84%). Total nitrogen in the fertilized plots are 0.0966 % and 0.0918 % and in the unfertilized 0.0852 % and 0.0804 %. In the dried roots of the unfertilized wheat crops the total carbon and nitrogen decreased slightly. In the fertilized crops it increased slightly or stayed steady.
-In the dried roots of the unfertilized wheat crops the total carbon and nitrogen decreased slightly. In the fertilized crops it increased slightly or stayed steady (\@ref{fig:rootctnt}. 
+Total carbon and nitrogen concentration was measured in air-dried soil samples at the first timepoint. Total carbon concentrations are in a similar range across all treatments (0.78-0.84%). Total nitrogen in the fertilized plots are 0.0966 % and 0.0918 % and in the unfertilized 0.0852 % and 0.0804 %. In the dried roots of the unfertilized wheat crops the total carbon and nitrogen decreased slightly. In the fertilized crops it increased slightly or stayed steady. pH in the wet soils in all treatment plots are on average between 6.1 - 6.5 (data not shown).
+In the dried roots of the unfertilized wheat crops the total carbon and nitrogen decreased slightly. In the fertilized crops it increased slightly or stayed steady (\@ref(fig:rootctnt)). 
 
 ```{r soilnitatmo, echo=FALSE, fig.cap="Soil nitrogen content"}
 soil
@@ -45,8 +45,23 @@ soil
 root
 ```
 
+## Gene copy numbers of target genes
 
+16s rRNA and amoA of bacterial, archaea and commamox origin were amplified in quantitative polymerase chain reaction assays. As a template genomic DNA from the soil and rhizosphere of wheat crops was analyzed. Their was estimated in gene copy numbers by comparing to dilution series standard curve of a synthetic standard with a known amount of gene copy numbers. Two sample source at each two timepoints were evaluated in four assays per target gene. 
 
+### 16s rRNA
+
+The V3 region of the 16s rRNA was amplified with/between 341F and 518R primers. The performance of the assay are similar. Intercept ranges between 33.7 and 36. Slopes are between -3.2 and -3.51 with a $\mathrm{R^{2}}$ $\geq$ 0.989. The Efficiency of amplification of the standard ranges from 92 - 102 %. 
+
+```{r 16sStandard, echo=FALSE}
+
+standard_16s <- #load data
+      read_delim("data/16s_standard.csv",",",)
+
+kbl(standard_16s, booktabs = T, caption = "16s Standard",
+    col.names = c("Source", "Timepoint", "Slope", "Intercept", "R2", "Efficiency"))%>% #print table 
+  kable_styling(position = "center")
+```
 
 \clearpage
 

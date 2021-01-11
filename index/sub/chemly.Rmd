@@ -56,7 +56,8 @@ library(ggplot2)
   
   plot.nit <- ggplot(reduced,aes(timepoint,avg,fill=timepoint))+
     geom_bar(stat="identity", 
-             position=position_dodge()
+             position=position_dodge(),
+             show.legend = FALSE
              )+
     geom_errorbar(aes(ymin=avg-sd, ymax=avg+sd), width=.2,
                  position=position_dodge(.9))+
@@ -70,23 +71,24 @@ library(ggplot2)
   reduced <- filter(summary, id == "amo" )
   plot.amo <- ggplot(reduced,aes(timepoint,avg,fill=timepoint))+
     geom_bar(stat="identity", 
-             position=position_dodge()
+             position=position_dodge(),
+             show.legend = FALSE
              )+
     geom_errorbar(aes(ymin=avg-sd, ymax=avg+sd), width=.2,
                  position=position_dodge(.9))+
     ylab("mg in 100g wet soil")+
     facet_grid(treatment~id,
                scales="free",
-               labeller = labeller(id = labs, treatment = labs, timepoint = labs)
+               labeller = labeller(id = labs, treatment = labs, timepoint = labs),
                )+
     NULL
   library(ggpubr)
-  plot.nitamo <- ggarrange(plot.nit, plot.amo, legend = FALSE)
+  
 
 ```
 
 
-```{r ct/nt, echo=FALSE}
+```{r ct/nt soil, echo=FALSE}
 # soil
   
   reduced <- filter(summary, type =="soil", id == "c_t" | id == "n_t")
@@ -104,24 +106,56 @@ library(ggplot2)
     ylab("[% of dried soil sample]")+
     labs("Concentration of carbon and nitrogen in dried soil")+
     NULL
-  
+  library(cowplot)
+   plot.nitamo<- plot_grid(plot.nit + theme(legend.position="none"),
+                         plot.amo + theme(legend.position="none")
+                         ,labels = c('A', 'B')
+                         )
+   soil <- plot_grid(plot.nitamo,
+            plot.ctnt,
+            labels = c('', 'C'),
+            ncol = 1, nrow = 2,
+            rel_heights = c(2,1))
+```
+
+```{r ct/nt root, echo=FALSE}
 # root
   
-  reduced <- filter(summary, type =="root", id == "c_t" | id == "n_t")
+   #c_t
+  reduced <- filter(summary, type =="root", id == "c_t" )
   
-  plot.ctnt.rt <- ggplot(reduced,aes(treatment,avg,fill=treatment))+
+  plot.ct.rt <- ggplot(reduced,aes(timepoint,avg,fill=timepoint))+
     geom_bar(stat="identity", 
              position=position_dodge()
              )+
     geom_errorbar(aes(ymin=avg-sd, ymax=avg+sd), width=.2,
                  position=position_dodge(.9))+
-     facet_wrap(timepoint~id,
+     facet_grid(treatment~id,
                scales="free",
-               labeller = labeller(id = labs)
-               ) +
-    ylab("[% of dried root sample]")+
-    labs(title = "Total carbon and nitrogen content in dried roots")+
-    NULL
+               labeller = labeller(id = labs, treatment = labs, timepoint = labs),
+               )+
+    ylab("[% of dried root sample]")
+  
+  #n_t
+  reduced <- filter(summary, type =="root", id == "n_t" )
+  plot.nt.rt <- ggplot(reduced,aes(timepoint,avg,fill=timepoint))+
+    geom_bar(stat="identity", 
+             position=position_dodge()
+             )+
+    geom_errorbar(aes(ymin=avg-sd, ymax=avg+sd), width=.2,
+                 position=position_dodge(.9))+
+     facet_grid(treatment~id,
+               scales="free",
+               labeller = labeller(id = labs, treatment = labs, timepoint = labs),
+               )+
+    ylab("[% of dried root sample]")
+  
+  root<- plot_grid(plot.ct.rt + theme(legend.position="none"),
+                         plot.nt.rt + theme(legend.position="none")
+                         ,labels = c('A', 'B')
+                         )
+  
+ 
 ```
 
 ```{r ph soil, echo=FALSE}

@@ -172,6 +172,3 @@ rhizo16s <- plot(multi.two.group.paired.mean_diff,
     )
 ```
 
-```{r rhizo16s, echo=FALSE, fig.cap="Rhizo 16s rRNA estimation of mean differences"}
-rhizo16s #estimation plots, paired mean differences, 5000 bootstrap ci 
-```

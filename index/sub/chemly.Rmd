@@ -88,7 +88,7 @@ library(ggplot2)
 ```
 
 
-```{r ct/nt soil, echo=FALSE, include=FALSE}
+```{r ct/nt soil, echo=FALSE, include=FALSE, message=FALSE}
 # soil
   
   reduced <- filter(summary, type =="soil", id == "c_t" | id == "n_t")

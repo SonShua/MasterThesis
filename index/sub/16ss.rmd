@@ -2,7 +2,9 @@
 title: "16ss"
 author: "Joshua Johnson"
 date: "1/7/2021"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 <!-- Packages -->
@@ -32,12 +34,17 @@ qpcr <-
 # Variable type changes 
     qpcr$id <- as.factor(qpcr$id)
     dna$id <- as.factor(dna$id)
-    trt$time[trt$time == "t2"] <- "0"
-    trt$time[trt$time == "t3"] <- "1"
+    trt$time[trt$time == "t2"] <- "1"
+    trt$time[trt$time == "t3"] <- "2"
+    
     #trt <- trt %>%
       #convert_as_factor(id,fert,fung,block,time,row,treatment,subject) # easier when more than one needs to change
 trt$id <- as.factor(trt$id)
-    
+
+# table with standard curve parameters
+standard_16s <- #load data
+      read_delim("data/16s_standard.csv",",",)
+
 ```    
     
 <!-- Data mangling -->
@@ -98,7 +105,7 @@ trt$id <- as.factor(trt$id)
 
 <!-- Summary Statistics -->
 
-```{r}
+```{r summary stastics, echo=FALSE, warning=FALSE, message = FALSE}
  summary <- genecopy %>%
   group_by(type,time,fert,fung) %>%
   get_summary_stats(qty_ng, type = "mean_sd")%>%
@@ -109,25 +116,62 @@ genecopy$treatment[genecopy$treatment == "H01"] <- "Fert"
 genecopy$treatment[genecopy$treatment == "HP0"] <- "Fung + GroRe"
 genecopy$treatment[genecopy$treatment == "HP1"] <- "Full"
 
-wrk <- genecopy %>%
-  filter(type == "soil")
+
 ```
 
 
-```{r dabestr test}
+```{r dabestr estimation, echo=FALSE, warning=FALSE, message = FALSE}
 library(dabestr)
+
+my_theme <- theme_classic() + theme(axis.title.y = element_text(size=10))
+# soil
+wrk <- genecopy %>%
+  filter(type == "soil") %>%
+  convert_as_factor(time,subject)
+
 multi.two.group.paired <- 
   wrk %>%
   dabest(treatment, qty_ng, 
          idx = c("Control", "Fert", "Fung + GroRe", "Full"),
-         paired = TRUE, id.column = time)
+         paired = TRUE, id.column = subject)
+
+# The summary indicates this is a paired comparison. 
+multi.two.group.paired.mean_diff <- mean_diff(multi.two.group.paired)
+soil16sTable <- multi.two.group.paired.mean_diff
+
+soil16s <- plot(multi.two.group.paired.mean_diff, 
+     color.column = time,
+     effsize.ylim = c(0, 500000),
+     slopegraph = TRUE,
+     rawplot.ylabel = "Gene copy numbers \n [ng DNA]",
+     theme=my_theme
+    )
+
+
+#rhizo
+wrk <- genecopy %>%
+  filter(type == "rhizo") %>%
+  convert_as_factor(time,subject)
+
+multi.two.group.paired <- 
+  wrk %>%
+  dabest(treatment, qty_ng, 
+         idx = c("Control", "Fert", "Fung + GroRe", "Full"),
+         paired = TRUE, id.column = subject)
 
 
 # The summary indicates this is a paired comparison. 
 multi.two.group.paired.mean_diff <- mean_diff(multi.two.group.paired)
+rhizo16sTable <- multi.two.group.paired.mean_diff
 
-
-plot(multi.two.group.paired.mean_diff, 
-     rawplot.type = "swarmplot")
+rhizo16s <- plot(multi.two.group.paired.mean_diff, 
+     color.column = time,
+     effsize.ylim = c(-100000, 200000),
+     slopegraph = TRUE,
+     rawplot.ylabel = "Gene copy numbers \n [ng DNA]"
+    )
 ```
 
+```{r rhizo16s, echo=FALSE, fig.cap="Rhizo 16s rRNA estimation of mean differences"}
+rhizo16s #estimation plots, paired mean differences, 5000 bootstrap ci 
+```

@@ -52,7 +52,9 @@ root
 DNA templates tested in dilution to offset inhibition by co-extracted humic acids. The data was re-calculated as gene copy numbers per ng DNA of the targeted gene. The resulting raw datapoints are displayed in the upper swarmplots. At the right side of each group swarm plot two black bars represent the standard deviation and the gap between the two bars is the mean. The differences of means between treatment group and control is calculated, then resampled and repeated 5000 times. Around the results of the bootstrap re-sample a 95% confidence interval is created and displayed. The timepoints of each group are paired. Soil and rhizosphere sample sources are evaluated separately. 
 
 ### 16s rRNA
-
+<!-- Ideas
+* Merge estimation plots soil and rhizo into one with ggarrange (plots are ggplot2s)
+-->
 ```{r 16s knitr child, echo=FALSE, error=FALSE,message=FALSE,results='asis'}
 cat(knitr::knit_child("/sub/16ss.Rmd", quiet=TRUE))
 #knits the calculations for chemical analysis
@@ -69,22 +71,41 @@ kbl(standard_16s, booktabs = T, caption = "16s Standard",
 
 In the soil samples, the raw data shows that 16s rRNA gene copy numbers are higher in the first timepoint in the fertilized (Fert+Full) plots, shortly after the fertilizer had been applied. In the control and only fungicide + growth regulator treated plots datapoints from the timepoints are mixed, but the second timepoint is more homogenely distributed. In the fungicide + growth regulator treated there are two extreme outliers. 
 
-All treatments have a **positive** mean difference. Fungicides and growth regulator only treated plots has the highest mean difference. Except for the fully treated plots, the lower limit of the 95% CI is positive for all treatments.
+All treatments have a **positive** mean difference. Fungicides and growth regulator only treated plots has the highest mean difference. Except for the fully treated plots, the lower limit of the 95% CI is positive for all treatments (Figure \@ref.
+
 ```{r soil16s, echo=FALSE, fig.cap="Soil 16s rRNA estimation of mean differences"}
 soil16s #estimation plots, paired mean differences, 5000 bootstrap ci 
 ```
 
-In the rhizosphere samples the 16s rRNA gene copy numbers are  higher at the first timepoint on average. In two instances at the fertilized and one in the fully treated plots the gene copy numbers are higher in the second timepoint. The mean of differences of the fertilized is positive with 12300. Only the fully treated plots show an even higher mean differences of 46300. Fungicides and growth regulator only treated plots have a negative mean difference of -8890. But lower limits of the confidence intervals are negative for all treatments.
+In the rhizosphere samples the 16s rRNA gene copy numbers are  higher at the first timepoint on average. In two instances at the fertilized and one in the fully treated plots the gene copy numbers are higher in the second timepoint. The mean of differences of the fertilized is positive with 12300. Only the fully treated plots show an even higher mean differences of 46300. Fungicides and growth regulator only treated plots have a negative mean difference of -8890. But lower limits of the confidence intervals are negative for all treatments (Figure \@ref(fig:rhizo16s).
+
+
 
 ```{r rhizo16s, echo=FALSE, fig.cap="Rhizo 16s rRNA estimation of mean differences"}
-rhizo16s #estimation plots, paired mean differences, 5000 bootstrap ci 
+rhizo16s
 ```
+
+\clearpage
 
 ### Bacterial amoA
 
 The subunit A of *amoA* of bacterial origin was targeted with 1F and 2R primers. 
 
-\clearpage
+```{r AobKnitrChild, echo=FALSE}
+cat(knitr::knit_child("/sub/aob.Rmd", quiet=TRUE))
+#knits the sub rmd the calculations for chemical analysis
+```
+
+
+```{r soilAob, echo=FALSE, fig.cap="Soil *amoA* bacteria estimation of mean differences"}
+soilaob
+```
+
+```{r rhizoAob, echo=FALSE, fig.cap="Rhizo *amoA* bacteria estimation of mean differences"}
+rhizoaob
+```
+
+
 
 <!-- clearpage ends the page, and also dumps out all floats.
   Floats are things like tables and figures. -->

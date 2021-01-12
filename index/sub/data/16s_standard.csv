@@ -1,0 +1,5 @@
+﻿Source,Timepoint,Slope,Intercept,R^2 ,Efficiency
+Rhizosphere,T2,-3.503,33.775,0.998,92.954
+Rhizosphere,T3,-3.464,35.939,0.999,94.413
+Soil,T2,-3.337,35.061,0.989,99.367
+Soil,T3,-3.275,34.967,0.994,101.979

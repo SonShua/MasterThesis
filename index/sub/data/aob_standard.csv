@@ -1,0 +1,5 @@
+﻿Group,Type,Timepoint,Slope,Intercept,R2 ,Efficiency
+AOB,Soil,T2,-3.225,37.084,0.993,104.228
+AOB,Soil,T3,-3.367,37.245,0.999,98.141
+AOB,Rhizo,T3,-2.393,27.547,0.995,161.781
+AOB,Rhizo,T2,-2.354,29.61,0.988,165.955

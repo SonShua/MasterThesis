@@ -77,7 +77,7 @@ All treatments have a **positive** mean difference. Fungicides and growth regula
 soil16s #estimation plots, paired mean differences, 5000 bootstrap ci 
 ```
 
-In the rhizosphere samples the 16s rRNA gene copy numbers are  higher at the first timepoint on average. In two instances at the fertilized and one in the fully treated plots the gene copy numbers are higher in the second timepoint. The mean of differences of the fertilized is positive with 12300. Only the fully treated plots show an even higher mean differences of 46300. Fungicides and growth regulator only treated plots have a negative mean difference of -8890. But lower limits of the confidence intervals are negative for all treatments (Figure \@ref(fig:rhizo16s).
+In the rhizosphere samples the 16s rRNA gene copy numbers are  higher at the first timepoint on average. In two instances at the fertilized and one in the fully treated plots the gene copy numbers are higher in the second timepoint. The mean of differences of the fertilized is positive with 12300. Only the fully treated plots show an even higher mean differences of 46300. Fungicides and growth regulator only treated plots have a negative mean difference of -8890. But lower limits of the confidence intervals are negative for all treatments (Figure \@ref(fig:rhizo16s)).
 
 
 
@@ -125,7 +125,7 @@ soilaob
 
 In the direct rhizosphere of the wheat crops there are lower gene copy numbers of *amoA* at the second timepoint for the control, fertilized and fungicides + growth regulator treated plots. The raw values in the fully treated plots are heterogenly distributed between timepoints. The fully treated plots show the highest mean of differences with 306 gene copy numbers, while the only fertilized has even a negative value of -377. With fungicides and growth regulator treated plots produced a slightly positive mean of difference with 20.3. All lower limits for the confidence intervals are negative. 
 
-```{r rhizoAob, echo=TRUE, fig.cap="Soil amoA bacteria estimation"}
+```{r rhizoAob, echo=TRUE, fig.cap="Rhizo amoA bacteria estimation"}
 rhizoaob
 ```
 

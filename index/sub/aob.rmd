@@ -9,24 +9,11 @@ output:
 
 <!-- Packages -->
 
-```{r Packages aob, echo=FALSE, results='hide', warning=FALSE, message = FALSE}
-library(tidyverse)
-library(dplyr)
-library(ggplot2)
-library(cowplot)
-library(reshape2)
-library(rstatix)
-library(ggpubr)
-library(nlme)
-library(lme4)
-library(kableExtra)
-```
-
 <!-- Data load -->
-```{r aob qPCR load, echo=FALSE, results='hide', warning=FALSE, message = FALSE}
+```{r aob qPCR load, echo=FALSE, warning=FALSE, message = FALSE}
 # Loading bay
 qpcr <- 
-      read_delim("C:/Users/jjohn/OneDrive/MScthesis/data/aob.csv",",",) #gene copy numbers from qpcr instrument
+      read_delim("C:/Users/jjohn/OneDrive/MScthesis/data/qPCR/aob.csv",",",) #gene copy numbers from qpcr instrument
     dna <- 
       read_delim("C:/Users/jjohn/OneDrive/MScthesis/data/dna.csv",",",) # dna concentration of samples
     trt <-
@@ -47,10 +34,66 @@ qpcr <-
 standard_aob <- 
       read_delim("data/aob_standard.csv",",",)
 
+
 ```    
     
+    
+```{r recalibration, echo=FALSE, message=FALSE}
+# Standard curve based on '[Type:Soil | Timepoint: T3] standard results
+
+  standard_curve <- 
+    read_delim("C:/Users/jjohn/OneDrive/MScthesis/data/qPCR/aob_standard_curve.csv",",",)
+
+# Gettin an exacter model equation
+  model <- lm(ct ~ qty_log10, data = standard_curve)
+  model
+  
+#Coefficients:
+#(Intercept)    qty_log10  
+#     37.245       -3.367
+  
+# Recalculating the quantity values based on the standard curve in '[Type:Soil | Timepoint: T3]
+
+  # Load the data 
+  
+  std <- qpcr %>%
+    filter(id == "Standard 2")%>%
+    select(type,time,id,ct)%>%
+    group_by(time,type)%>%
+    get_summary_stats(ct, type = "mean_sd")
+  
+# We use the Standard 2 as an interrun calibrator and the Standard 2 of [Type:Soil | Timepoint: T3] is the 1.0 (100%)
+  
+  #Value is [Type:Soil | Timepoint: T3] 13.188
+  
+ std <- std %>%
+    mutate(corr = mean - 12.472 )%>%
+    select(time, type, corr)
+ 
+ write_csv(std, "corr_factor.csv")
+ 
+ qpcr <- 
+   read_delim("C:/Users/jjohn/OneDrive/MScthesis/data/qPCR/aob.csv",",",)%>%
+   filter(id!="Standard 2")%>%
+   select(time,type,id,ct)
+
+ 
+ 
+ qpcr <- qpcr %>% 
+   inner_join(std, by = c("time" = "time", "type" = "type"))%>%
+   mutate(ct_corr = ct + corr)%>%
+   select(time,type,id,ct_corr)%>%
+   mutate(qty= 10^((ct_corr-37.245)/-3.367)) #enter intercept and slope of standard curve u want to calibrate on here
+  
+# Recalibration on new standard curve done
+ rm(std)
+ rm(standard_curve)
+ rm(model)
+  
+```
+
 <!-- Data mangling -->
-```{r Averaging technical replicates/ Resetting dilutions aob , echo=FALSE, warning=FALSE, message = FALSE}
+```{r Averaging technical replicates/ Resetting dilutions aob, echo=FALSE, warning=FALSE, message = FALSE}
 # Summary statistics
   summary <- qpcr %>%
     group_by(type, id)%>%                                    
@@ -120,9 +163,10 @@ genecopy$treatment[genecopy$treatment == "HP1"] <- "Full"
 
 
 ```
+<!-- Summary Statistics
+*intermediate data is named here different because of debugging process -->
 
-
-```{r dabestr estimation aob, echo=FALSE, warning=FALSE, message = FALSE}
+```{r dabestr estimation aob, echo=FALSE, message = FALSE}
 library(dabestr)
 
 my_theme <- theme_classic() + theme(axis.title.y = element_text(size=10))
@@ -131,17 +175,16 @@ wrk <- genecopy %>%
   filter(type == "soil") %>%
   convert_as_factor(time,subject)
 
-multi.two.group.paired <- 
+wrk.dabest <- 
   wrk %>%
   dabest(treatment, qty_ng, 
-         idx = c("Control", "Fert", "Fung + GroRe", "Full"),
-         paired = TRUE, id.column = subject)
+         idx = c("Control", "Fert", "Fung + GroRe", "Full"))
 
 # The summary indicates this is a paired comparison. 
-multi.two.group.paired.mean_diff <- mean_diff(multi.two.group.paired)
-soilaobTable <- multi.two.group.paired.mean_diff
+wrk.diff <- mean_diff(wrk.dabest)
+soilaobTable <- wrk.diff
 
-soilaob <- plot(multi.two.group.paired.mean_diff, 
+soilaob <- plot(wrk.diff, 
      color.column = time,
      effsize.ylim = c(-1500, 1500),
      slopegraph = TRUE,
@@ -149,31 +192,39 @@ soilaob <- plot(multi.two.group.paired.mean_diff,
      theme=my_theme
     )
 
+soilaob
 
+
+```
+
+
+```{r rhizo}
 #rhizo
 wrk <- genecopy %>%
   filter(type == "rhizo") %>%
-  convert_as_factor(time,subject)%>%
-  filter(id != "320")
+  convert_as_factor(time,subject)
 
-multi.two.group.paired <- 
+wrk$id <- as.numeric(wrk$id)
+wrk <- filter(wrk, subject != "12")
+
+wrk.dabest <- 
   wrk %>%
   dabest(treatment, qty_ng, 
-         idx = c("Control", "Fert", "Fung + GroRe", "Full"),
-         paired = TRUE, 
-         id.column = subject)
+         idx = c("Control", "Fert","Fung + GroRe", "Full")
+         )
 
 
 # The summary indicates this is a paired comparison. 
-multi.two.group.paired.mean_diff <- mean_diff(multi.two.group.paired, reps = 5000)
-rhizoaobTable <- multi.two.group.paired.mean_diff
+wrk.diff <- mean_diff(wrk.dabest)
+rhizoaobTable <- wrk.diff
 
-rhizoaob <- plot(multi.two.group.paired.mean_diff, 
+rhizoaob <- plot(wrk.diff, 
      color.column = time,
-     effsize.ylim = c(-100000, 200000),
+     effsize.ylim = c(-1000, 1000),
      slopegraph = TRUE,
      rawplot.ylabel = "Gene copy numbers \n [ng DNA]"
     )
 
+rhizoaob
 ```
 

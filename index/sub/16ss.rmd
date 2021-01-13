@@ -148,6 +148,7 @@ soil16s <- plot(multi.two.group.paired.mean_diff,
     )
 
 
+
 #rhizo
 wrk <- genecopy %>%
   filter(type == "rhizo") %>%
@@ -170,5 +171,8 @@ rhizo16s <- plot(multi.two.group.paired.mean_diff,
      slopegraph = TRUE,
      rawplot.ylabel = "Gene copy numbers \n [ng DNA]"
     )
+
+
 ```
+
 

@@ -1,3 +1,4 @@
+
 ```{r include_packages_2, include = FALSE}
 # This chunk ensures that the huskydown package is
 # installed and loaded. This huskydown package includes
@@ -99,7 +100,7 @@ cat(knitr::knit_child("/sub/aob.Rmd", quiet=TRUE))
 
 The subunit A of *amoA* of bacterial origin was targeted with 1F and 2R primers. The performance of the assays with the rhizosphere samples showed poor performance (\@ref(tab:aobtable)) of the standard amplification. The high slope value of > -2.4 resulted in a high efficiency > 160% and low intercept < 30. For the soil samples assays the performance of the standard amplification is good with slope value approximating -3.3 and a intercept close to 37. $\mathrm{R^{2}}$ for the rhizosphere samples are > 0.98 and for the soil samples > 0.99 (Table \@ref(tab:aobStandardTable). Templates were diluted 1:20
 
-The poor standard curve performance in the rhizosphere sample assays resulted in a biased estimatio nof their gene copy numbers. Therefore, their $\mathrm{C_Q}$ values were fitted on another standard curve. All rhizosphere samples and the soil samples at the first timepoint were fitted on the standard curve of the soil samples at the second timepoint and gene copy numbers calculated. 
+The poor standard curve performance in the rhizosphere sample assays resulted in a biased estimation of their gene copy numbers. Therefore, their $\mathrm{C_Q}$ values were fitted on another standard curve. All rhizosphere samples and the soil samples at the first timepoint were fitted on the standard curve of the soil samples at the second timepoint and gene copy numbers calculated. 
 
 ```{r aobStandardTable, echo=FALSE, message=FALSE}
 kbl(standard_aob, booktabs = T, caption = "AOB Standard",
@@ -119,13 +120,14 @@ include_graphics("melt/aobrhizot3melt.jpg")
 
 The bacteria community in the soil samples have higher gene copy numbers of *amoA* at the second timepoint on average. At the first timepoint the raw values  are close to zero. Compared to the control, all treatments produced a higher mean of differences in gene copy numbers of *amoA* (Figure \@ref(fig:soilAob)). The fully treated plots show the highest mean of difference with 644 and a positive lower confidence interval limit compared to the control. The fertilized plots have 406 mean of differences in gene copy numbers wand the fungicides and growth regulator treated plots a 276 mean of differences. Both have a negative lower confidence interval limit. 
 
-```{r soilAob, echo=TRUE, fig.cap="Soil amoA bacteria estimation"}
+```{r soilAob, echo=FALSE, fig.cap="Soil amoA bacteria estimation", fig.asp=}
 soilaob
 ```
 
 In the direct rhizosphere of the wheat crops there are lower gene copy numbers of *amoA* at the second timepoint for the control, fertilized and fungicides + growth regulator treated plots. The raw values in the fully treated plots are heterogenly distributed between timepoints. The fully treated plots show the highest mean of differences with 306 gene copy numbers, while the only fertilized has even a negative value of -377. With fungicides and growth regulator treated plots produced a slightly positive mean of difference with 20.3. All lower limits for the confidence intervals are negative. 
 
-```{r rhizoAob, echo=TRUE, fig.cap="Rhizo amoA bacteria estimation"}
+```{r rhizoAob, echo=FALSE, fig.cap="Rhizo amoA bacteria estimation"}
 rhizoaob
 ```
 
+### Archaea *amoA*

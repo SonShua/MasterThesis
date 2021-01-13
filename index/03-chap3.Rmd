@@ -60,7 +60,7 @@ cat(knitr::knit_child("/sub/16ss.Rmd", quiet=TRUE))
 #knits the calculations for chemical analysis
 ```
 
-The V3 region of the 16s rRNA was amplified with/between 341F and 518R primers. The performance of the assay are similar. Intercept ranges between 33.7 and 36. Slopes are between -3.2 and -3.51 with a $\mathrm{R^{2}}$ $\geq$ 0.989. The Efficiency of amplification of the standard ranges from 92 - 102 %. The templates were diluted 1:400.  
+The V3 region of the 16s rRNA was amplified with/between 341F and 518R primers. The performance of the assay are similar. Intercept ranges between 33.7 and 36. Slopes are between -3.2 and -3.51 with a $\mathrm{R^{2}}$ $\geq$ 0.989. The Efficiency of amplification of the standard ranges from 92 - 102 % (Table \@ref(tab:16sStandardTable). The templates were diluted 1:400.  
 
 ```{r 16sStandardTable, echo=FALSE, message=FALSE}
 library(kableExtra)
@@ -71,7 +71,7 @@ kbl(standard_16s, booktabs = T, caption = "16s Standard",
 
 In the soil samples, the raw data shows that 16s rRNA gene copy numbers are higher in the first timepoint in the fertilized (Fert+Full) plots, shortly after the fertilizer had been applied. In the control and only fungicide + growth regulator treated plots datapoints from the timepoints are mixed, but the second timepoint is more homogenely distributed. In the fungicide + growth regulator treated there are two extreme outliers. 
 
-All treatments have a **positive** mean difference. Fungicides and growth regulator only treated plots has the highest mean difference. Except for the fully treated plots, the lower limit of the 95% CI is positive for all treatments (Figure \@ref.
+All treatments have a **positive** mean difference. Fungicides and growth regulator only treated plots has the highest mean difference. Except for the fully treated plots, the lower limit of the 95% CI is positive for all treatments (Figure \@ref(fig:soil16s)). The numerical difference between two ticks on the y-axis is for the upper plot 250.000 and on the lower is a 100.000 gene copy numbers. 
 
 ```{r soil16s, echo=FALSE, fig.cap="Soil 16s rRNA estimation of mean differences"}
 soil16s #estimation plots, paired mean differences, 5000 bootstrap ci 
@@ -87,13 +87,45 @@ rhizo16s
 
 \clearpage
 
-### Bacterial amoA
-
-The subunit A of *amoA* of bacterial origin was targeted with 1F and 2R primers. 
-
-
-
 <!-- clearpage ends the page, and also dumps out all floats.
   Floats are things like tables and figures. -->
+  
+```{r aob knitr child, include=FALSE, eval=TRUE}
+cat(knitr::knit_child("/sub/aob.Rmd", quiet=TRUE))
+#knits the calculations for chemical analysis
+```
 
+### Bacterial amoA
+
+The subunit A of *amoA* of bacterial origin was targeted with 1F and 2R primers. The performance of the assays with the rhizosphere samples showed poor performance (\@ref(tab:aobtable)) of the standard amplification. The high slope value of > -2.4 resulted in a high efficiency > 160% and low intercept < 30. For the soil samples assays the performance of the standard amplification is good with slope value approximating -3.3 and a intercept close to 37. $\mathrm{R^{2}}$ for the rhizosphere samples are > 0.98 and for the soil samples > 0.99 (Table \@ref(tab:aobStandardTable). Templates were diluted 1:20
+
+The poor standard curve performance in the rhizosphere sample assays resulted in a biased estimatio nof their gene copy numbers. Therefore, their $\mathrm{C_Q}$ values were fitted on another standard curve. All rhizosphere samples and the soil samples at the first timepoint were fitted on the standard curve of the soil samples at the second timepoint and gene copy numbers calculated. 
+
+```{r aobStandardTable, echo=FALSE, message=FALSE}
+kbl(standard_aob, booktabs = T, caption = "AOB Standard",
+    col.names = c("Source", "Timepoint", "Slope", "Intercept", "R2", "Efficiency"))%>% #print table 
+  kable_styling(position = "center")%>%
+  footnote(general = "All assays were calibrated on the assays standard curve of the soil sample at second timepoint")
+```
+
+In addition to the problems with the standard amplification , unspecific amplification in the rhizosphere templates was detected.Generally, unspecific amplification formed in all assays in the negative controls as primer dimers. In the rhizosphere samples the primer dimers were also detected in the templates.
+Figure \@ref(fig:AobMelt) shows the melt curve of rhizosphere samples from the second timepoint. It shows a peak at 75°C and 89°C. The first peak are primer dimers, while the latter is the *amoA* . The 75°C peaks are in some cases larger than the same peaks in the negative control. The negative controls are the blue-lines peaking at 75°C with no peak at 89°C. 
+
+
+```{r AobMelt, echo=FALSE, fig.cap="Assays melt curve of rhizosphere at second timepoint"}
+library(knitr)
+include_graphics("melt/aobrhizot3melt.jpg")
+```
+
+The bacteria community in the soil samples have higher gene copy numbers of *amoA* at the second timepoint on average. At the first timepoint the raw values  are close to zero. Compared to the control, all treatments produced a higher mean of differences in gene copy numbers of *amoA* (Figure \@ref(fig:soilAob)). The fully treated plots show the highest mean of difference with 644 and a positive lower confidence interval limit compared to the control. The fertilized plots have 406 mean of differences in gene copy numbers wand the fungicides and growth regulator treated plots a 276 mean of differences. Both have a negative lower confidence interval limit. 
+
+```{r soilAob, echo=TRUE, fig.cap="Soil amoA bacteria estimation"}
+soilaob
+```
+
+In the direct rhizosphere of the wheat crops there are lower gene copy numbers of *amoA* at the second timepoint for the control, fertilized and fungicides + growth regulator treated plots. The raw values in the fully treated plots are heterogenly distributed between timepoints. The fully treated plots show the highest mean of differences with 306 gene copy numbers, while the only fertilized has even a negative value of -377. With fungicides and growth regulator treated plots produced a slightly positive mean of difference with 20.3. All lower limits for the confidence intervals are negative. 
+
+```{r rhizoAob, echo=TRUE, fig.cap="Soil amoA bacteria estimation"}
+rhizoaob
+```
 

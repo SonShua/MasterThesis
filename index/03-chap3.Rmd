@@ -50,7 +50,9 @@ root
 
 16s rRNA and amoA of bacterial, archaea and commamox origin were amplified in quantitative polymerase chain reaction assays. As a template genomic DNA from the soil and rhizosphere of wheat crops was analyzed. Their abundance was estimated in gene copy numbers by comparing to a dilution series standard curve. The source of the standard was a synthetic gene fragment with a known amount of gene copy numbers. Two sample source at each two timepoints were evaluated in four assays per target gene. 
 
-DNA templates tested in dilution to offset inhibition by co-extracted humic acids. The data was re-calculated as gene copy numbers per ng DNA of the targeted gene. The resulting raw datapoints are displayed in the upper swarmplots. At the right side of each group swarm plot two black bars represent the standard deviation and the gap between the two bars is the mean. The differences of means between treatment group and control is calculated, then resampled and repeated 5000 times. Around the results of the bootstrap re-sample a 95% confidence interval is created and displayed. The timepoints of each group are paired. Soil and rhizosphere sample sources are evaluated separately. 
+DNA templates tested in dilution to offset inhibition by co-extracted humic acids. The data was re-calculated as gene copy numbers per ng DNA of the targeted gene. The resulting raw datapoints are displayed in the upper swarmplots. At the right side of each group swarm plot two black bars represent the standard deviation and the gap between the two bars is the mean. The differences of means between treatment group and control is calculated, then resampled and repeated 5000 times. Around the results of the bootstrap re-sample a 95% confidence interval is created and displayed. Soil and rhizosphere sample sources are evaluated separately. 
+
+
 
 ### 16s rRNA
 <!-- Ideas
@@ -109,7 +111,7 @@ kbl(standard_aob, booktabs = T, caption = "AOB Standard",
   footnote(general = "All assays were calibrated on the assays standard curve of the soil sample at second timepoint")
 ```
 
-In addition to the problems with the standard amplification , unspecific amplification in the rhizosphere templates was detected.Generally, unspecific amplification formed in all assays in the negative controls as primer dimers. In the rhizosphere samples the primer dimers were also detected in the templates.
+In addition to poor performance of standard amplification , unspecific amplification in the rhizosphere templates was detected. Generally, unspecific amplification formed in all assays in the negative controls as primer dimers. In the rhizosphere samples the primer dimers were also detected in the templates.
 Figure \@ref(fig:AobMelt) shows the melt curve of rhizosphere samples from the second timepoint. It shows a peak at 75°C and 89°C. The first peak are primer dimers, while the latter is the *amoA* . The 75°C peaks are in some cases larger than the same peaks in the negative control. The negative controls are the blue-lines peaking at 75°C with no peak at 89°C. 
 
 
@@ -131,3 +133,26 @@ rhizoaob
 ```
 
 ### Archaea *amoA*
+
+```{r aoa knitr child, include=FALSE, eval=TRUE}
+cat(knitr::knit_child("/sub/aoa.Rmd", quiet=TRUE))
+#knits the calculations for chemical analysis
+```
+
+Subunit A of *amoA* in Archaea was targeted with CrenamoA23F and CrenamoA616R primers in the samples. The slopes of the standard curve (Table \@ref(tab:aoaStandardTable)) are ranging between -3.8 and -4.6 with intercepts between 41 - 44. This resulted in a low efficiency of the standard amplification (66 - 83 %). $\mathrm{C_Q}$ of the technical replicates of the standard are conistent which reflects in $\mathrm{R^{2}}$ values > 0.99.
+
+
+```{r aoaStandardTable, echo=FALSE, message=FALSE}
+kbl(standard_aob, booktabs = T, caption = "AOA Standard",
+    col.names = c("Source", "Timepoint", "Slope", "Intercept", "R2", "Efficiency"))%>% #print table 
+  kable_styling(position = "center")
+ 
+```
+
+*amoA* gene copy numbers are in the ranges of 10,000 - 40,000 in the soil samples (Figure \@ref(fig:. In the control gene copy numbers are higher in the second timepoint than the first. No clear pattern between timepoints is observable for the treated plots. The mean of differences of the fully treated plots is the most negative mean of differences (-8310). The upper and lower limits of the fully treated plots are negative. The fertilized and the fungicide + growth regulator treated plots have also negative lower CI limits, but a positive upper limit. Their mean of differences is also negative with -3500 for the fertilized and -1010 for the fungicide and growth regulator treated plots. 
+
+```{r soilAoa, echo=FALSE, fig.cap="Rhizo amoA archaea estimation"}
+soilaoa
+```
+
+In the rhizosphere samples the gene copy numbers of archaea *amoA* have a higher range between 1,000,000 - 3,000,000 

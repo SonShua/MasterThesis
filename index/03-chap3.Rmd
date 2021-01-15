@@ -108,7 +108,8 @@ The poor standard curve performance in the rhizosphere sample assays resulted in
 kbl(standard_aob, booktabs = T, caption = "AOB Standard",
     col.names = c("Source", "Timepoint", "Slope", "Intercept", "R2", "Efficiency"))%>% #print table 
   kable_styling(position = "center")%>%
-  footnote(general = "All assays were calibrated on the assays standard curve \n of the soil sample at second timepoint")
+  footnote(general = "All assays were calibrated on the assays standard curveof the soil sample at second timepoint", 
+           threeparttable = TRUE)
 ```
 
 In addition to poor performance of standard amplification , unspecific amplification in the rhizosphere templates was detected. Generally, unspecific amplification formed in all assays in the negative controls as primer dimers. In the rhizosphere samples the primer dimers were also detected in the templates.

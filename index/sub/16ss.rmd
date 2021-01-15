@@ -45,7 +45,10 @@ trt$id <- as.factor(trt$id)
 standard_16s <- #load data
       read_delim("data/16s_standard.csv",",",)
 
-```    
+
+```
+
+
     
 <!-- Data mangling -->
 ```{r Averaging technical replicates/ Resetting dilutions , echo=FALSE, warning=FALSE, message = FALSE}

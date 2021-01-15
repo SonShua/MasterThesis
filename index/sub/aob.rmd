@@ -62,12 +62,10 @@ standard_aob <-
     group_by(time,type)%>%
     get_summary_stats(ct, type = "mean_sd")
   
-# We use the Standard 2 as an interrun calibrator and the Standard 2 of [Type:Soil | Timepoint: T3] is the 1.0 (100%)
-  
-  #Value is [Type:Soil | Timepoint: T3] 13.188
+
   
  std <- std %>%
-    mutate(corr = mean - 12.472 )%>%
+    mutate(corr = mean - 12.472 )%>% # mean of interrun calibrator 
     select(time, type, corr)
  
  write_csv(std, "corr_factor.csv")

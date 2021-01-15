@@ -145,19 +145,19 @@ Subunit A of *amoA* in Archaea was targeted with CrenamoA23F and CrenamoA616R pr
 
 
 ```{r aoaStandardTable, echo=FALSE, message=FALSE}
-kbl(standard_aob, booktabs = T, caption = "AOA Standard",
+kbl(standard_aoa, booktabs = T, caption = "AOA Standard",
     col.names = c("Source", "Timepoint", "Slope", "Intercept", "R2", "Efficiency"))%>% #print table 
   kable_styling(position = "center")
  
 ```
 
-*amoA* gene copy numbers are in the ranges of 10,000 - 40,000 in the soil samples (Figure \@ref(fig:soilAoa)). In the control gene copy numbers are higher in the second timepoint than the first. No clear pattern between timepoints is observable for the treated plots. The mean of differences of the fully treated plots is the most negative mean of differences (-8310). The upper and lower limits of the fully treated plots are negative. The fertilized and the fungicide + growth regulator treated plots have also negative lower CI limits, but a positive upper limit. Their mean of differences is also negative with -3500 for the fertilized and -1010 for the fungicide and growth regulator treated plots. 
+In the soil samples, *amoA* gene copy numbers are in the ranges of 10,000 - 40,000 (Figure \@ref(fig:soilAoa)). In the control plots, gene copy numbers are higher at the second timepoint than at the first. No clear pattern between timepoints is observable for the treated plots. The mean of differences of the fully treated plots is the most negative mean of differences (-8310). The upper and lower limits of the fully treated plots are negative. The fertilized and the fungicide + growth regulator treated plots have also negative lower CI limits, but a positive upper limit. Their mean of differences is also negative with -3500 for the fertilized and -1010 for the fungicide and growth regulator treated plots. 
 
 ```{r soilAoa, echo=FALSE, fig.cap="Rhizo amoA archaea estimation"}
 soilaoa
 ```
 
-The gene copy numbers of archaea *amoA* in the rhizosphere samples have a similar range of 10,000 - 30,000 to the soil samples. One outlier above 50,000 in the fully treated plots is observable. The second timepoint has on average a higher gene copy numbers of *amoA* than the first. The mean of differences is the most negative in the fungicide + growth regulator treated plots (-2800). The fully treated plots have a mean of differences of -1040. Only thethe fertilized plots show a positive mean of differences at 7.65. All treatments have a negative lower limit and a positive upper limit. The high outlier of the fully treated plot caused a high upper limit of their confidence interval. 
+The gene copy numbers of archaea *amoA* in the rhizosphere samples have a similar range of 10,000 - 30,000 to the soil samples. One outlier above 50,000 in the fully treated plots is observable. The second timepoint has on average a higher gene copy numbers of *amoA* than the first. The mean of differences is the most negative in the fungicide + growth regulator treated plots (-2800). The fully treated plots have a mean of differences of -1040. Only the fertilized plots show a positive mean of differences at 7.65. All treatments have a negative lower limit and a positive upper limit. The high outlier of the fully treated plot caused a high upper limit of their confidence interval. 
 
 ```{r rhizoAoa, echo=FALSE, fig.cap="Rhizo amoA archaea estimation"}
 rhizoaoa
@@ -166,4 +166,17 @@ rhizoaoa
 
 ### Complete ammonia oxidiser (Comammox)
 
+```{r com knitr child, include=FALSE, eval=TRUE}
+cat(knitr::knit_child("/sub/com.Rmd", quiet=TRUE))
+#knits the calculations for chemical analysis
+```
 
+A conserved region in the genome shared by complete ammonia oxidiser bacteria was target with XY primers.
+
+
+```{r comStandardTable, echo=FALSE, message=FALSE}
+kbl(standard_com, booktabs = T, caption = "AOA Standard",
+    col.names = c("Source", "Timepoint", "Slope", "Intercept", "R2", "Efficiency"))%>% #print table 
+  kable_styling(position = "center")
+ 
+```

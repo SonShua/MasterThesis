@@ -10,7 +10,7 @@ output:
 <!-- Packages -->
 
 <!-- Data load -->
-```{r aob qPCR load, echo=FALSE, warning=FALSE, message = FALSE}
+```{r aoa qPCR load, echo=FALSE, warning=FALSE, message = FALSE}
 # Loading bay
 qpcr <- 
       read_delim("C:/Users/jjohn/OneDrive/MScthesis/data/qPCR/aoa.csv",",",) #gene copy numbers from qpcr instrument
@@ -18,6 +18,8 @@ qpcr <-
       read_delim("C:/Users/jjohn/OneDrive/MScthesis/data/dna.csv",",",) # dna concentration of samples
     trt <-
       read_delim("C:/Users/jjohn/OneDrive/MScthesis/data/treatment_factors.csv",",",) #treatment index
+    
+
 
 # Variable changing room 
     qpcr$id <- as.factor(qpcr$id)
@@ -36,9 +38,9 @@ standard_aoa <-
 
 
 ```    
-    
-    
-```{r recalibration, echo=FALSE, message=FALSE}
+
+<!-- not doing a recalibration --> 
+```{r recalibration aoa, eval=FALSE, echo=FALSE, message=FALSE}
 # Standard curve based on '[Type:Soil | Timepoint: T3] standard results
 
   standard_curve <- 
@@ -103,7 +105,7 @@ standard_aoa <-
       sd.qty=sd(qty, na.rm = TRUE) 
     )%>% 
     ungroup()
- rm(qpcr)
+ 
  
 # Join DNA conc. and summary qty for later calculations  
  joined <- summary %>% 
@@ -119,9 +121,9 @@ standard_aoa <-
   # Index created: averaged quantity value (from technical replicates) for each replicate
  
    calc <- joined %>%
-     mutate(qty_undil=avg.qty*20)%>% 
-     mutate(qty_ul=qty_undil/8)%>% 
-     mutate(qty_ng=qty_ul/dna_conc)
+     mutate(qty_ng=avg.qty*400)%>% 
+     mutate(qty_ng=qty_ng/8)%>% 
+     mutate(qty_ng=qty_ng/dna_conc)
    
   # index <- calc  %>% 
     #inner_join(trt, by = c("id" = "id"))%>%
@@ -143,7 +145,7 @@ standard_aoa <-
   
   rm(trt)
   rm(fin)
-  
+  rm(qpcr)
 # Finished, we now have a tibble called 'genecopy' which includes the gene copy numbers per ng DNA
   # Index is a copy of all average qty values (avg of technical replicates) for each replicate and is normalized on ng DNA
 ```
@@ -186,7 +188,7 @@ soilaoaTable <- wrk.diff
 
 soilaoa <- plot(wrk.diff, 
      color.column = time,
-     effsize.ylim = c(-1500, 1500),
+     effsize.ylim = c(-15000, 6000),
      slopegraph = TRUE,
      rawplot.ylabel = "Gene copy numbers \n [ng DNA]",
      theme=my_theme
@@ -194,14 +196,13 @@ soilaoa <- plot(wrk.diff,
 ```
 
 
-```{r rhizo}
+```{r rhizo aoa, echo=FALSE}
 #rhizo
 wrk <- genecopy %>%
   filter(type == "rhizo") %>%
   convert_as_factor(time,subject)
 
-wrk$id <- as.numeric(wrk$id)
-wrk <- filter(wrk, subject != "12")
+
 
 wrk.dabest <- 
   wrk %>%
@@ -216,9 +217,10 @@ rhizoaoaTable <- wrk.diff
 
 rhizoaoa <- plot(wrk.diff, 
      color.column = time,
-     effsize.ylim = c(-1000, 1000),
+     effsize.ylim = c(-10000, 16000),
      slopegraph = TRUE,
      rawplot.ylabel = "Gene copy numbers \n [ng DNA]"
     )
+
 ```
 

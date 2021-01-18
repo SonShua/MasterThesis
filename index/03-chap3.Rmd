@@ -21,7 +21,7 @@ flights <- read.csv("data/flights.csv")
 ```
 
 
-# Results {#ref-labels}
+# Results {-}
 
 ```{r chemly knitr child, echo=FALSE, error=FALSE,message=FALSE,results='asis'}
 cat(knitr::knit_child("/sub/chemly.Rmd", quiet=TRUE))

@@ -22,6 +22,8 @@
 \usepackage{tabu}
 \usepackage{longtable}
 \usepackage{titlesec}
+\usepackage{threeparttable}
+\usepackage{makecell}
 %---New Definitions and Commands------------------------------------------------------
 
 \newtheorem{theorem}{Jibberish}
@@ -262,174 +264,246 @@ Placeholder
 \hypertarget{additional-resources}{%
 \section{Additional resources}\label{additional-resources}}
 
-\hypertarget{math-sci}{%
-\chapter{Mathematics and Science}\label{math-sci}}
+\hypertarget{material-and-methods}{%
+\chapter*{Material and Methods}\label{material-and-methods}}
+\addcontentsline{toc}{chapter}{Material and Methods}
+
+\chaptermark{Material and Methods}
+
+This study determined how soil-living microorganisms are affected by inputs used in a conventional wheat cropping system. An agricultural field trial with wheat crops treated with conventionally used fertilizers, fungicides and growth regulators in Germany in 2019-2020 was performed. The treated crops were contrasted to control crops without the inputs. From the rhizosphere of the wheat crops samples were taken. The genomic DNA in the samples was extracted and analyzed with quantitative polymerase chain reaction for their gene copy numbers of the targeted genes. Of interest were genes that produce enzymes for the nitrification of ammonia and 16S rRNA. Furthermore, this study employed generalized linear models using lme4 in R to estimate the effects of the fertilizers, fungicides and growth regulators on the gene copy numbers of the target genes.
+
+\hypertarget{experimental-design}{%
+\section{Experimental design}\label{experimental-design}}
+
+\hypertarget{field-trial-of-winter-wheat-in-a-randomized-complete-block-design}{%
+\subsection{Field trial of winter-wheat in a randomized complete block design}\label{field-trial-of-winter-wheat-in-a-randomized-complete-block-design}}
+
+An agricultural field in experimental station ZALF in Brandenburg, Germany (53°21'58.5``N 13°48'13.3''E) was used to study the effects of agriculture on soil microorganisms. The site has been used agriculturally for more than 30 years. On the field, 3x7m plots were arranged in blocks. On 18.09.2019 winter wheat (\emph{Triticum aestivum}, variety: RGT Reform) was sown in a density of 280 seeds/\(\mathrm{m^2}\) on the assigned plots. To avoid cross-over effects a buffer of rye (\emph{Secale cereal}) was sown between blocks.
+\begin{table}
+
+\caption{\label{tab:soilParameters}Parameters and concentrations of chemical compounds in the experimental sites soil. Measured by a previous study using the same site.}
+\centering
+\begin{tabular}[t]{lrl}
+\toprule
+Variable & Value & Unit\\
+\midrule
+Ammonium & 0.0783 & mg NH4-N per 100g wet soil\\
+Nitrate & 2.6640 & mg NO3-N per 100g wet soil\\
+Phosphorus & 6.0800 & mg per 100g dry soil\\
+Potassium & 11.5030 & mg per 100g dry soil\\
+Sodium & 0.4230 & mg per 100g dry soil\\
+\addlinespace
+Magnesium & 1.6650 & mg per 100g dry soil\\
+Calcium & 54.7830 & mg per 100g dry soil\\
+Carbon total & 0.7210 & \% of dry soil\\
+Nitrogen total & 0.0677 & \% of dry soil\\
+Sulfur total & 0.0120 & \% of dry soil\\
+\addlinespace
+Soil moisture & 3.4300 & \% H2O of wet soil\\
+pH & 5.4200 & -log(H+)\\
+\bottomrule
+\end{tabular}
+\end{table}
+The chemical and physical quality of the fields soil was determined by a previous study (Table \ref{tab:soilParameters}), which used the same field. Nitrogen and magnesium were measured by \(\mathrm{CaCl_2}\) extraction. Phosphorus, potassium and sodium was measured by the double lactate method. Calcium was measured by the calcium-acetate-lactate method. pH was measured in a KCl suspension. Total carbon, nitrogen and sulfur were measured in an elemental analyzer. The topsoil on the site is a loamy sand and ranges from Su3 to Sl3 across the blocks.
+
+\hypertarget{treatment-of-fertilizer-fungicides-and-growth-regulators}{%
+\subsection{Treatment of fertilizer, fungicides and growth regulators}\label{treatment-of-fertilizer-fungicides-and-growth-regulators}}
+
+All plots were treated with an herbicide in form of \emph{Viper™ Compact (Corteva Agriscience)} to suppress weeds at 26 days after sowing,. The herbicide was applied to lower nutritional and spatial struggle between the wheat crop and plants of no interest.
+Treatment was categorized into two factors. The components were nitrogen fertilizer, sulfur fertilizer, magnesium fertilizer, fungicides and growth regulators. The fertilizers were grouped into one treatment factor. Fungicide and growth regulators were grouped into a second treatment factor. Both factors were binary (Application {[}Yes{]} / No Application {[}No{]}) and crossed. Resulting in one treatment for each factor plus one crossed treatment and a control treatment. Fertilizer treatment was applied as calcium ammonium nitrate (CAN), magnesium oxide (MgO) and sulfur (S). All were added to the wheat plots 179 days after sowing. To secure the nitrogen supply in the fertilized plots, another dosage of CAN was added 201 days after sowing. Fungicides were applied to the wheat plots as \emph{Champion ® (BASF)} at 210 and \emph{Seguris \copyright (Syngenta)} at 232 days after sowing. Growth regulators were applied in form of \emph{Calma (NuFarm)} and \emph{CCC 720 (Bayer Agrar)} both at 203 days after sowing. A detailed list of the herbicide that was applied to all plots, fertilizers, fungicides and growth regulators and their active ingredients is listed in Table \ref{tab:Trt}.
+\begin{table}
+
+\caption{\label{tab:Trt}Listing of all treatment components used in the experiments. Days of application and their active ingredients included. Only herbicide applied to all plots. Fertilizers were grouped into one treatment factor. Fungicides and growth regulator into the other.}
+\centering
+\begin{tabular}[t]{lllllll}
+\toprule
+\multicolumn{2}{c}{ } & \multicolumn{3}{c}{Factor 1} & \multicolumn{2}{c}{Factor 2} \\
+\cmidrule(l{3pt}r{3pt}){3-5} \cmidrule(l{3pt}r{3pt}){6-7}
+\multicolumn{2}{c}{ } & \multicolumn{3}{c}{Fertilizers} & \multicolumn{2}{c}{ } \\
+\cmidrule(l{3pt}r{3pt}){3-5}
+Item & Herbicide & Nitrogen & Magnesium & Sulfur & Fungicides & Regulators\\
+\midrule
+\makecell[l]{Amount,\\Form} & \makecell[l]{1 l/ha\\Viper} & \makecell[l]{40,80\\kg/ha CAN} & \makecell[l]{27 kg/ha\\MgO} & \makecell[l]{22 kg/h\\S} & \makecell[l]{1.5 l/ha\\Champion,\\1,0 l/ha\\Seguris} & \makecell[l]{ 0.3 l/ha\\Calma,\\0.5 l/ha\\CCC}\\
+\makecell[l]{Date\\(DAS)} & 26 & \makecell[l]{179,\\201} & 179 & 179 & \makecell[l]{210,\\232} & 203\\
+\makecell[l]{Active\\ingredient} & \makecell[l]{Diflufenican,\\Florasulam,\\Penoxsulam} & \makecell[l]{Ammonium,\\Nitrate,\\Calcium} & Magnesium & Sulfur & \makecell[l]{Epoxiconazol,\\Boscalid,\\Isopyrazam} & \makecell[l]{Trinexapac\\-ethyl,\\Chlormequat-\\chlorid}\\
+\bottomrule
+\multicolumn{7}{l}{\rule{0pt}{1em}\textit{Note: }}\\
+\multicolumn{7}{l}{\rule{0pt}{1em}DAS = Days after sowing}\\
+\end{tabular}
+\end{table}
+The plots were sampled at the tillering (217 days after sowing) and stem elongation stage (265 days after sowing) of the wheat crop. Before the first sampling timepoint all treatments factors had been applied. Between the first and second sampling point another dosage of fungicide had been applied.
+On five representative locations within each plot one crop was dug out with a spade. The crop was struck on the spade three times to remove loose bulk soil. The roots were then struck into a collection container to collect the rhizosphere soil. After collecting the rhizosphere soil sample, the root was separated from the shoot. Root and rhizosphere soil were stored separately in plastic bags. From the rhizosphere soil a representative subsample in a 15 ml falcon tube was taken. All samples were stored on dry ice until the subsample of the rhizosphere soil could be stored at -80°C, root and the remaining rhizosphere soil at -20°C in the research center. The samples were kept in these conditions to prevent the microorganism community structure to change in the sample.
+In the laboratory the remaining soil and microorganisms attached to the roots were washed off. A subsample of the root was placed inside a 50 ml falcon tube. 1X Phosphate-buffered saline (PBS) solution (kept at 4°C) was added to detach and suspend the remaining soil and microorganisms attached to the roots. The tube was shaken by hand three times and shaken on a horizontal shaker for 10 min on 400 rpm. The washed roots were removed from the falcon tube. Again, the falcon tube was filled with 1x PBS to the 50 ml mark. The suspension was centrifuged at 4500 x g for 30 min at 4°C to pellet the washed off soil and microorganisms. After the centrifuging, the supernatant was discarded. The pellet was resuspended in 4 ml 1x PBS solution and vortexed. The suspension was transferred into 2 ml Eppendorf tubes and centrifuged at 4500 x g for 5 min. Again, the supernatant was discarded. The remaining liquid was stored in separate tubes at -80°C. Lastly the washed roots were dried at 60°C in a drying oven for three days and then milled.
+The samples are named as the following in this thesis. The rhizosphere soil sampled at the field is named soil. The washed of soil from the root system is called rhizosphere (Table \ref{tab:sample}).
+\begin{table}
+
+\caption{\label{tab:sample}Sample sources}
+\centering
+\begin{tabular}[t]{lll}
+\toprule
+Name & Source & Method.of.collection\\
+\midrule
+Soil & \makecell[l]{Soil loosely \\bound to root system} & \makecell[l]{After crop was dug out, the\\ loose bulk soil was removed, and the\\ remaining soil shaken off.}\\
+Rhizosphere & \makecell[l]{Soil closely \\bound to roots} & \makecell[l]{After “Soil” sample were collected,\\ the soil bonded to the root was washed off\\and pelleted.}\\
+\bottomrule
+\end{tabular}
+\end{table}
+\hypertarget{chemical-analysis-soil-and-roots}{%
+\section{Chemical analysis soil and roots}\label{chemical-analysis-soil-and-roots}}
+
+Nitrogen concentration may vary in soil within treatments due to errors in application or varying spatial availability and influence microorganism community structures. Therefore, the plant available nitrate and ammonium concentration was measured in the plots. In addition, subsamples of the wet soils were dried at 20°C for 3 days, milled and analyzed for total carbon in nitrogen in an elemental analyzer. Same was done for the dried roots from the sampling process.
+
+\hypertarget{amplification-of-target-genes-using-pcr}{%
+\section{Amplification of target genes using PCR}\label{amplification-of-target-genes-using-pcr}}
+
+The diet of soil-living microorganisms depends on their ability to alter chemical compounds. They use enzymes to catalyze favorable reaction of chemical compounds in and around the soil to gain energy for themselves. Their ability to produce these enzymes is dictated by the genome of the microorganisms. The blueprints for the enzymes are encoded in genes of the genome. The genes can be copied and multiplied by DNA polymerases. Here, DNA polymerases were used to copy genes of interest in the total genomic DNA of our samples and quantify them with DNA dyes.
+
+\hypertarget{extraction-of-genomic-dna-from-samples}{%
+\subsection{Extraction of genomic DNA from samples}\label{extraction-of-genomic-dna-from-samples}}
+
+The genomic DNA of all samples was extracted and purified. In soils contaminants are present, that may interfere with the downstream analysis. A suitable extraction kit that separate the genomic DNA from the contaminants was needed. The \emph{DNeasy PowerLyzer PowerSoil Kit (Qiagen)} was used. In the ``Quick-Start Protocol'' step 8 and 10 were modified. At both steps the amount of supernatant transferred was changed to 700 µl. This was to increase DNA yield (step 8) and lower the chance of splashing (step 10). After extraction, the DNA concentration {[}ng/ µl{]} and purity {[}260/230nm{]} was measured spectrophotometrically with a \emph{Nanodrop 2000 (ThermoFischer)}. The extracted solution was stored in \emph{LoBind® Tubes (Eppendorf)} at -80°C to minimize DNA binding and therefore loss to the tube. Before freezing, a working stock solution with 25\% of the original was prepared and frozen. Extractions rounds were grouped according to treatments to avoid cross-contamination of DNA. The workbench was cleaned between extraction rounds with 5\% sodium hypochlorite solution and wiped of with distilled water.
+
+\hypertarget{target-genes-and-primers}{%
+\subsection{Target genes and primers}\label{target-genes-and-primers}}
+
+In the total genomic DNA ammonia monooxygenase (\emph{amoA}) was targeted. An essential gene for the nitrification of ammonia. Ammonia monooxygenase catalyzes the oxidization of ammonia to hydroxylamine, an intermediate, which can be further converted by other microorganisms to nitric oxide, nitrite and nitrate. \emph{amoA} can be present in the genome of bacteria and archaea. There is variation in the \emph{amoA} sequence between bacteria and archaea, which make the target genes distinguishable from another. Another distinguishable variation of \emph{amoA} is in the genome of recently discovered \textbf{co}mplete \textbf{am}monia \textbf{ox}idizer (Comammox) bacteria, which can complete the whole conversion process of ammonia to nitrate. Additionally, we targeted the V3 region of the 16S ribosomal RNA which is highly conserved and ubiquitously present in mostly all bacteria and archaea species genomes. This was utilized as a proxy of general abundance of bacteria and archaea in our samples.
+Forward (5-3') and reverse (3-5') oligonucleotide primers suited to capture \emph{amoA} of bacterial, archaea and comammox origin were used. For the \emph{16s rRNA} primers 341F and 518R were used. The primers anneal to their complementary part of a single stranded version of the target gene. The DNA polymerase uses the and replicates the complementary strand. The sequences of the primer sets are listed in Table (\ref{tab:primerTable}. The sequence between where a primer sets forward and reverse primer attach to in the genome is the sequence that the polymerase is going to replicate. This sequence is only part of the whole target gene.
+\begin{table}
+
+\caption{\label{tab:primerTable}Primer sequences used to amplify target sequences. Targets are functional genes \textit{amoA} and conserved regions of bacteria and archaea linked to ammonia nitrification (except \textit{16s rRNA}).}
+\centering
+\begin{tabular}[t]{llll}
+\toprule
+Target & Kingdom & \makecell[l]{Primer Sequence F (5-3')/\\ Primer Sequence R (5-3')} & Subtarget\\
+\midrule
+\textit{16s rRNA} & \makecell[l]{Bacteria and\\Archaea} & \makecell[l]{cctacgggnggcwgcag (341F)/\\attaccgcggctgctgg\\(518R)} & V3-Region\\
+\textit{amoA} & Archaea & \makecell[l]{atggtctggctwagacg(CrenamoA23F)/\\gccatccatctgtatgtcca\\(CrenamoA616R)} & a-subunit\\
+\textit{amoA} & Bacteria & \makecell[l]{ggggtttctactggtggt(1F)/\\cccctckgsaaagccttcttc(2R)} & a-subunit\\
+Commamox & Bacteria & \makecell[l]{aggngaytgggayttctgg(comamoA F)/\\cggacawabrtgaabcccat-(comamoA R)} & Conserve
+region\\
+\bottomrule
+\end{tabular}
+\end{table}
+\hypertarget{polymerase-chain-reaction-to-copy-target-genes-from-genomic-dna}{%
+\subsection{Polymerase chain reaction to copy target genes from genomic DNA}\label{polymerase-chain-reaction-to-copy-target-genes-from-genomic-dna}}
+
+In thermal cycling processes we copied and amplified the target genes in the genomic DNA of our samples. For this we used oligonucleotide primers (Table 2), DNA polymerases, deoxynucleotides (dNTPS), genomic DNA from our samples and a thermal cycler. The cycling consisted out of a high temperature that will denature the double stranded DNA into single stranded DNA , a primer specific annealing temperature will allow the primers to attach to the single stranded DNA, and an extension and elongation step where the DNA polymerase will attach to the annealed primers and copy and amplify the sequence. Timing of the temperature is essential. The thermal cycling programs for each target gene is listed in Table 3
+\begin{table}
+
+\caption{\label{tab:cycles}Thermal cycling program for polymerase chain reaction to amplify target genes in genomic DNA samples using DNA polymerase. Cycles performed in qPCR instrument.}
+\centering
+\begin{tabular}[t]{lllll}
+\toprule
+ & \makecell[c]{\textit{amoA}\\(Archaea)} & \makecell[r]{\textit{amoA}\\(Bacteria)} & Commamox & \makecell[c]{\textit{16s rRNA}\\(Bacteria and Archaea}\\
+\midrule
+\makecell[l]{Thermal cycling \\program\\(Initial denaturing,\\Amount of cyclesx\\(Denaturing,\\Annealing,\\Extension))} & \makecell[l]{95°C x 60 sec,\\30x\\(95°C x 15 sec,\\59° C x 30 sec,\\68° C x 60 sec)} & \makecell[l]{95°C x 60 sec,\\30x\\(95°C x 15 sec,\\54° C x 45 sec,\\68° C x 30 sec)} & \makecell[l]{95°C x 60 sec,\\30x\\(95°C x 15 sec,\\63° C x 45 sec,\\68° C x 30 sec)} & \makecell[l]{95°C x 60 sec,\\40x\\(95°C x 15 sec,\\53° C x 30 sec,\\72° C x 60 sec)}\\
+\bottomrule
+\end{tabular}
+\end{table}
+\hypertarget{quantitation-of-polymerase-chain-reaction-products-by-standards}{%
+\subsection{Quantitation of polymerase chain reaction products by standards}\label{quantitation-of-polymerase-chain-reaction-products-by-standards}}
+
+The thermal cycles of the polymerase chain reaction were performed in \textbf{quantitative} polymerase chain reaction instrument. In addition to the thermal cycler, the instrument detected fluorescence signals by a fluorimeter. The instruments input for samples was organized in wells. The reagents for the polymerase chain reaction were mixed with a DNA template and pipetted into the wells. The reagent mix contained dNTPs, DNA-polymerase, MgCl2 and SYBR Green. SYBR Green is a dye binding to double-stranded DNA sequences and emitting a fluorescence signal. In the thermal cycling process the instruments fluorimeter measured the fluorescence at the extension step of the thermal cycle in each well. Then, the signal strength is plotted against the running cycle number. A quantification cycle (CQ) is defined, when the fluorescence signal can be differentiated from the background fluorescence signal. To relate the CQ to number of target gene copies present we employed an absolute quantitation by a standard curve method. A standard highly similar to the target gene and with a known copy number was prepared in 10-fold dilution standard series. The dilution reduced the copy numbery by a factor of \(\mathrm{10^{-1}}\) for each step. Standard series and genomic DNA underwent the same thermal cycles in the same master mix. The CQ values of the standard series (y-axis) were plotted against the log10 transformed gene copy numbers (x-axis). The datapoints were fitted by a linear regression to create a standard curve. On the regression line, the CQ values of the genomic DNA samples were fitted and the \(\mathrm{log_{10}}\) gene copy number determined. By back transforming the log10 gene copy number the true gene copy number in the sample was calculated. The standard curves quality was assessed by the slope value and the coefficient of determination (R2). A -3.32 slope would represent a difference in 3.32 cycles between two adjacent 10-fold dilutions. When the PCR is 100\% efficient and each cycle the DNA concentration is doubled, it would theoretically takes 3.32 cycles for a 10-1 dilution to reach the 100 in gene copy numbers.
+
+\hypertarget{synthetic-gene-fragments-as-standards}{%
+\subsection{Synthetic gene fragments as standards}\label{synthetic-gene-fragments-as-standards}}
+
+As standards, synthetically produced gene fragments matching the target gene sequences by gBlocks (Integrated DNA Technologies, Coralville, IA, USA) were
+ordered. The fragment was delivered dry, resuspended in the laboratory and the gene fragments concentration measured in Qubit (Thermo Fischer Scientific). The
+gene copy number of the fragment was calculated using the following formula. Where C is the concentration in \(\frac{ng}{\mu l}\) and M the molecular weight \(\frac{fmol}{ng}\) of the gene fragment. \((1 x 10^{-15}\frac{mol}{fmol})\) is the conversion factor from mol to fmol.
+\begin{equation} 
+Gene\:Fragment[\frac{copy number}{\mu l}]=(C)*(M)*(1 x 10^{-15}\frac{mol}{fmol})*(Avogadro's\: number)
+\end{equation}
+The initial suspension of the gene fragment was diluted 10X into a working stock solution. We prepared the working stock to a standard series in an eight step 10X serial dilution. The sequence of the gene fragment was sourced by aligning the primer sets (Table 2) to the genome sequence of a suitable candidate microorganism . Suitability was determined by: (1) Bacteria/ Archaea has amoA, (2) Bacteria/ Archaea appears in soils, (3) type or reference strain (4) genome fully sequenced and sequence data available. As a 16s rRNA sequence a well-studied type strain from the bovine rumen was used. The source microorganisms are listed in Table 4. At both ends target genes sequence 50 basepairs of non-coding region from the source was added to improve similarity to the target genes sequence in the genomic DNA of the samples.
+\begin{table}
+
+\caption{\label{tab:Standards}Sources of sequences for synthetically produced gene fragments. Genomes of the sources were aligned with primer sets to retrieve sequences. Sequences were produced to gene fragments by \textit{gBlocks}.}
+\centering
+\begin{tabular}[t]{llllll}
+\toprule
+Target & Kingdom & \makecell[l]{Species\\name} & ID & \makecell[l]{Length of\\standard +\\overhang(bp)} & \makecell[l]{Length of \\gene target\\(bp)}\\
+\midrule
+\textit{16s rRNA} & \makecell[l]{Bacteria and\\Archaea} & \makecell[l]{\textit{Wolinella} \\ \textit{succinogenes}} & DSM 1740 & 295 & 194\\
+\textit{amoA} & Archaea & \makecell[l]{\textit{Nitrososphaera} \\ \textit{viennensis}} & EN76 & 728 & 628\\
+\textit{amoA} & Bacteria & \makecell[l]{\textit{Nitrosomonas} \\ \textit{europaea}} & ATCC 19718 & 591 & 491\\
+Commamox & Bacteria & \makecell[l]{\textit{Nitrospira} \\ \textit{nitrificans}} & 302411 &  & \\
+\bottomrule
+\end{tabular}
+\end{table}
+\hypertarget{assay-design-of-quantitative-polymerase-chain-reaction-runs}{%
+\subsection{Assay design of quantitative polymerase chain reaction runs}\label{assay-design-of-quantitative-polymerase-chain-reaction-runs}}
+
+The qPCRs were performed in a 7500 Fast Real-Time PCR System (Applied Biosystems™) with 96-wells. The layout of the 96-wells was programmed, the raw data analyzed and exported with SDS software. ROX was set as a passive reference. Each sample and dilution of the standard series was run in three technical replicates (triplicates). Each target gene was analyzed in separate qPCR runs. On each plate a standard curve was produced. Due constrained wells per plate, technical replication and standard series the samples were grouped into qPCR runs by timepoint and sample source. Luna® Universal qPCR Master Mix (M3003, New England Biolabs, MA, USA) was used as a master mix containing dNTPs, Hot Start Taq DNA Polymerase, polymerase co-factors and SYBR Green. For one reaction 10 µl of master mix, 0.5 µl of the forward primer (10 µM), 0.5 µl of the reverse primer (10 µM) and 1 µl of nuclease-free water was mixed with 8 µl DNA template. The reaction mix (master mix, primers and nuclease-free water) was prepared in sterile tubes for the number of templates to be tested, 2 negative controls (containing nuclease-free water instead of DNA templates) and plus 10\% buffer. 12 µl of the vortexed reaction mix was added to the wells. First, one negative control was pipetted with 8 µl of nuclease-free water and closed off. After that, DNA-templates, standard series and the remaining negative control was pipetted. The controls were pipetted separately to track whether an amplification in the negative control was due to DNA contamination in the master mix or cross contamination while pipetting standard and templates. The plate was sealed, vortexed and centrifuged before running the thermal cycles in the qPCR instrument. The product of the quantitative polymerase chain reaction was verified on a melt curve on the qPCR instrument. Additionally, while designing the assay, the products were run on a 1.25\% agarose gel electrophoresis and verified by matching with the standard. If in preliminary assay runs an unspecific amplification occurred, the thermal cycle program was adapted and cross-validated in a regular thermal cycler. Products of the same sample that underwent same thermal cycling in different cyclers were matched in a gel electrophoresis. Pipetting of the well plate and master mix was done in a PCR workbench. The workbench was cleaned with UV-light and 70\% ethanol.
+
+\hypertarget{inhibition-of-polymerase-chain-reaction-by-co-extracted-contaminants-in-templates}{%
+\subsection{Inhibition of polymerase chain reaction by co-extracted contaminants in templates}\label{inhibition-of-polymerase-chain-reaction-by-co-extracted-contaminants-in-templates}}
+
+In environmental samples compounds are present that can interfere with the polymerase chain reaction at different levels. Humic acids are ubiquitously presentin soils and are co-extracted with the genomic DNA from soil samples. These acids interact with the DNA Taq polymerase and slows down the enzymatic reaction. They can bind Mg2+, cause them to precipitate and thus lowering the magnesium concentration in the solution. MgCl2 is an important co-factor of the Taq polymerase and less concentration results in a lower polymerase activity (Schrader et al.~2012; Abbaszadegan et al.~1993).
+For each target gene samples were randomly chosen to test for their inhibition of the quantitative polymerase chain reaction. A five-step 10X serial dilution series was prepared of the working stock solution of the genomic DNA solution. The inhibition assay was ran as described as in (ASSAY DESIGN) with a five-step standard series and a no-template control. Theoretically, under no inhibition and 100\% efficiency the DNA amount is double every cycle. It will take 3.32 cycles for a 10X dilution to reach the DNA concentration of the original solution. Therefore, if between dilutions a difference in CQ between 3.0 -- 3.6 was detected, the dilution range between them was considered as suitable for the detection of target genes.
+
+\hypertarget{evaluation-of-raw-qpcr-data}{%
+\subsection{Evaluation of raw qPCR data}\label{evaluation-of-raw-qpcr-data}}
+
+Triplicates with a CQ standard deviation ≥ 0.5 were flagged by the SDS software and inspected manually. The replicates with a more similar CQ Value were grouped and contrasted to the outlier. Their melt curves were overlaid and determined if the divergent CQ originated from no amplification, unspecific amplification or primer dimer formation. Primer dimer are possible if the 3' end of the primer set are complementary. The forward and reverse primer anneal to each other and the DNA-polymerase elongates in 5' direction of the forward and reverse primer. The result is a short double-stranded gene fragment matching both the forward and reverse primer. SYBR Green stains the primer dimer, resulting in a fluorescence signal detected by the qPCR instrument. The short length of the dimer as compared to the target gene is detectable in a lower melting point spike of about 10-15°C.
+Negative controls were inspected if the qPCR instrument detected a fluorescence signal. The melt curve was analyzed for amplification of target genes. If in both negative controls a specific product of the target gene was detectable, the run was repeated. A gene product in the negative control pipetted before all DNA templates implies a contamination in the reaction mix, which falsifies the signal of all samples. The run was repeated. A detectable fluorescence signal and a product in the melt curve of the negative control pipetted last was analyzed separately. Only If a target gene product and a difference of CQ of \textless5 to the sample with the highest CQ was detected, the run was repeated.
+
+\hypertarget{calculation-of-gene-copy-numbers-per-uxb5l-dna}{%
+\subsection{Calculation of gene copy numbers per µl DNA}\label{calculation-of-gene-copy-numbers-per-uxb5l-dna}}
+
+The CQ and raw gene copy numbers were extracted from the SDS software. The raw data was loaded into in RStudio (Version 1.3.1073) and the gene copy numbers averaged for each sample across their technical replicates. The make the values comparable the raw gene copy numbers were recalculated as gene copy numbers per nanogram genomic DNA. The raw gene copy number is multiplied with the inverse value of the dilution used and divided by the amount of template DNA added to each well. The product is then divided by the DNA concentration of the sample.
+
+\[ Gene\:copy\:number=\frac{\frac{Raw\:gene\:copy\:number*Dilution^{-1}}{Amount\:of\:template\:used\:(\mu l)}}{DNA\:conc.(\frac{ng}{\mu l})}\]
+\#\# Data evaluation
+The effects of the fertilizers, fungicides and growth regulators were evaluated in a suitable statistical model. Fertilizers were grouped into one effect variable, fungicides and growth regulator into the other effect variable. Both variables are categorical qualitative variables coded as Yes = Application and No = No Application. Fertilizers and Fungicide + Growth
+
+\includegraphics{figure/structure.png}
+Regulators were crossed resulting in three treatments and one control: (1) Fertilizer, (2) Fungicides + Growth regulators, (3) Fertilizer and Fungicides + Growth regulators. The variables are fixed effects. Treatment was randomly allocated on plots within complete blocks. The treatments and control are replicated five times (n=5) but measured at two time points. The measurements of the same plot are correlated.
+There are two sample sources `rhizosphere' and `soil' which are analyzed separately. The blocks were established to capture possible gradients within the field and increase accuracy of the data. Theoretical gradients in the field that made blocking relevant could be nutrients, water availability, microorganism community structure, rhizodeposition, shading, pH and carbon. For each `Rhizosphere' and `soil' sample a plot on five random representative locations was sampled and merged into one sample. Each plot was sampled a second time.
+Due to the application of another dosage of fungicide (1,0 l/ha Seguris®) between t1 and t2 a higher correlation between affected plots may be higher than others.
+
+\hypertarget{statistical-analysis}{%
+\subsection{Statistical analysis}\label{statistical-analysis}}
+
+A linear multi-level model accounting for all the levels depicted is proposed to evaluate the data generated in this experiment. The focus of the analysis is on the fixed effects i.e.~fertilizers and fungicide + growth regulators on the response variable. Here, the response variable it is the gene copy number of the target genes in the genomic DNA. Target genes are evaluated separately, because they are different variables. The stastical model for one observation of gene copy numbers of a specific target gene can be formulated as:
+
+\[ y_{ijkl}=\mu + \alpha_i+\beta_j+\tau_l+(αβ)_{11}+ (ατ)_{1l}+ (βτ)_{1l}+b_k+ε_{ijkl}\]
+
+where \(y_{ijkl}\) the dependent variable gene copy numbers at i-th fertilizer level, at j-th fungicide + growth regulator level in k-th block at l-th timepoint. The general effect \(\mu\), is the general effect or the population mean of the target gene (N=20). \(\alpha_i\) the effect of fertilizer and \(\beta_j\) the effect of fungicides + growth regulators. The subscripts i and j are dummy coded, as both variables are categorical, as 0 = No application and 1 = Application. \(\tau_l\) is the timepoint, \((\alpha \beta)_{11}\) is the interaction of fertilizer, fungicides and growth regulators. \((\alpha \tau)_{1l}\) and \((\beta \tau)_{1l}\) the interaction of the main effects with timepoint. \(b_k\) is the block effect (k = 1-5) and \(ε_{ijkl}\) is the residual error associated with the observation.
+
+\hypertarget{integration-of-model-into-r}{%
+\subsubsection{Integration of model into R}\label{integration-of-model-into-r}}
+
+Fertilizer and fungicides + growth regulators, α and β, are fixed effects, because they were applied as treatments and are nearly constant. Their effect is fixed to their levels. A special case of is the timepoint, τ\_l. Microorganisms will multiply over time, especially when energy sources and symbiotic partners (i.e.~the wheat crops) are present. Timepoint is nested within plots (i.e.~same plots were sampled twice) and are therefore correlated
+Block, b\_k, is a random effect. It is not known how the block influences the dependent variable. Therefore, a mixed model including both fixed and random effects is used to evaluate the data.
+To integrate both effect types into a model the package `lme4' (version 1.1-26) in RStudio was used. The model was iterated with the least amount of effects and then updated with the random effects, fixed effects and interaction effect.
+The full model with the lmer function of `lme4' was coded as:
+\texttt{model\ \textless{}-\ lmer(genecopy.number\ \textasciitilde{}\ fertilizer*fungicides*time\ +\ (1\textbar{}block),\ data\ =\ data.frame)}
+
+`Genecopy.number' is the dependent variable and the model tries to predict by \texttt{fertilizer}, \texttt{fungicide} and \texttt{fertilizer*fungicide}. The \texttt{fertilizer*fungicide} variable automatically fits the main effects (\texttt{fertilizer} + \texttt{fungicide}) and the interaction effect (\texttt{fertilizer*fungicide}). \texttt{(1\textbar{}block)} adds a random intercept for block. This states that the fertilizer and fungicides effects have the same slope (i.e.~effect) across blocks but intercept (i.e.~general effect) for each block is different. \texttt{time} is treated as fixed effect here. Ideally, it would be treated as a random effect slope variable, which varies either between treatments or blocks. Because of the blocking of plots, the varying between treatments is not possible.
+
+\hypertarget{results}{%
+\chapter*{Results}\label{results}}
+\addcontentsline{toc}{chapter}{Results}
 
 Placeholder
 
-\hypertarget{math}{%
-\section{Math}\label{math}}
+\hypertarget{chemical-analysis-of-soil-and-roots}{%
+\section{Chemical analysis of soil and roots}\label{chemical-analysis-of-soil-and-roots}}
 
-\hypertarget{chemistry-101-symbols}{%
-\section{Chemistry 101: Symbols}\label{chemistry-101-symbols}}
+\hypertarget{gene-copy-numbers-of-target-genes}{%
+\section{Gene copy numbers of target genes}\label{gene-copy-numbers-of-target-genes}}
 
-\hypertarget{typesetting-reactions}{%
-\subsection{Typesetting reactions}\label{typesetting-reactions}}
+\hypertarget{s-rrna}{%
+\subsection{16s rRNA}\label{s-rrna}}
 
-\hypertarget{other-examples-of-reactions}{%
-\subsection{Other examples of reactions}\label{other-examples-of-reactions}}
+\hypertarget{bacterial-amoa}{%
+\subsection{Bacterial amoA}\label{bacterial-amoa}}
 
-\hypertarget{physics}{%
-\section{Physics}\label{physics}}
+\hypertarget{archaea-amoa}{%
+\subsection{\texorpdfstring{Archaea \emph{amoA}}{Archaea amoA}}\label{archaea-amoa}}
 
-\hypertarget{biology}{%
-\section{Biology}\label{biology}}
-
-\hypertarget{ref-labels}{%
-\chapter{Results}\label{ref-labels}}
-
-By far the easiest way to present tables in your thesis is to store the contents of the table in a CSV or Excel file, then read that file in to your R Markdown document as a data frame. Then you can style the table with the \texttt{kable} function, or functions in the \href{https://cran.r-project.org/web/packages/kableExtra/index.html}{kableExtra} pacakge.
-
-In addition to the tables that can be automatically generated from a data frame in \textbf{R} that you saw in \protect\hyperlink{rmd-basics}{R Markdown Basics} using the \texttt{kable} function, you can also create tables using \emph{pandoc}. (More information is available at \url{http://pandoc.org/README.html\#tables}.) This might be useful if you don't have values specifically stored in \textbf{R}, but you'd like to display them in table form. Below is an example. Pay careful attention to the alignment in the table and hyphens to create the rows and columns. Generally I don't recommend this approach of typing the table directly into your R Markdown document.
-\begin{longtable}[]{@{}ccc@{}}
-\caption{\label{tab:inher} Correlation of Inheritance Factors for Parents and Child}\tabularnewline
-\toprule
-\begin{minipage}[b]{0.29\columnwidth}\centering
-Factors\strut
-\end{minipage} & \begin{minipage}[b]{0.46\columnwidth}\centering
-Correlation between Parents \& Child\strut
-\end{minipage} & \begin{minipage}[b]{0.16\columnwidth}\centering
-Inherited\strut
-\end{minipage}\tabularnewline
-\midrule
-\endfirsthead
-\toprule
-\begin{minipage}[b]{0.29\columnwidth}\centering
-Factors\strut
-\end{minipage} & \begin{minipage}[b]{0.46\columnwidth}\centering
-Correlation between Parents \& Child\strut
-\end{minipage} & \begin{minipage}[b]{0.16\columnwidth}\centering
-Inherited\strut
-\end{minipage}\tabularnewline
-\midrule
-\endhead
-\begin{minipage}[t]{0.29\columnwidth}\centering
-Education\strut
-\end{minipage} & \begin{minipage}[t]{0.46\columnwidth}\centering
--0.49\strut
-\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\centering
-Yes\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.29\columnwidth}\centering
-Socio-Economic Status\strut
-\end{minipage} & \begin{minipage}[t]{0.46\columnwidth}\centering
-0.28\strut
-\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\centering
-Slight\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.29\columnwidth}\centering
-Income\strut
-\end{minipage} & \begin{minipage}[t]{0.46\columnwidth}\centering
-0.08\strut
-\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\centering
-No\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.29\columnwidth}\centering
-Family Size\strut
-\end{minipage} & \begin{minipage}[t]{0.46\columnwidth}\centering
-0.18\strut
-\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\centering
-Slight\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.29\columnwidth}\centering
-Occupational Prestige\strut
-\end{minipage} & \begin{minipage}[t]{0.46\columnwidth}\centering
-0.21\strut
-\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\centering
-Slight\strut
-\end{minipage}\tabularnewline
-\bottomrule
-\end{longtable}
-We can also create a link to the table by doing the following: Table \ref{tab:inher}. If you go back to \protect\hyperlink{loading-and-exploring-data}{Loading and exploring data} and look at the \texttt{kable} table, we can create a reference to this max delays table too: Table \ref{tab:maxdelays}. The addition of the \texttt{(\textbackslash{}\#tab:inher)} option to the end of the table caption allows us to then make a reference to Table \texttt{\textbackslash{}@ref(tab:label)}. Note that this reference could appear anywhere throughout the document after the table has appeared.
-
-\clearpage
-
-\hypertarget{figures}{%
-\section{Figures}\label{figures}}
-
-Test
-
-In the \textbf{R} chunk below, we will load in a picture stored as \texttt{uw.png} in our main directory. We then give it the caption of ``UW logo'', the label of ``uwlogo'', and specify that this is a figure. Make note of the different \textbf{R} chunk options that are given in the R Markdown file (not shown in the knitted document).
-
-Here is a reference to the UW logo: Figure \ref{fig:uwlogo}. Note the use of the \texttt{fig:} code here. By naming the \textbf{R} chunk that contains the figure, we can then reference that figure later as done in the first sentence here. We can also specify the caption for the figure via the R chunk option \texttt{fig.cap}.
-
-\clearpage
-
-Below we will investigate how to save the output of an \textbf{R} plot and label it in a way similar to that done above. Recall the \texttt{flights} dataset from Chapter \ref{rmd-basics}. (Note that we've shown a different way to reference a section or chapter here.) We will next explore a bar graph with the mean flight departure delays by airline from Portland for 2014. Note also the use of the \texttt{scale} parameter which is discussed on the next page.
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{flights }\OperatorTok{%>%}\StringTok{ }\KeywordTok{group_by}\NormalTok{(carrier) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{mean_dep_delay =} \KeywordTok{mean}\NormalTok{(dep_delay)) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ carrier, }\DataTypeTok{y =}\NormalTok{ mean_dep_delay)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_bar}\NormalTok{(}\DataTypeTok{position =} \StringTok{"identity"}\NormalTok{, }\DataTypeTok{stat =} \StringTok{"identity"}\NormalTok{, }\DataTypeTok{fill =} \StringTok{"red"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-\begin{verbatim}
-`summarise()` ungrouping output (override with `.groups` argument)
-\end{verbatim}
-\begin{figure}
-\centering
-\includegraphics{thesis_files/figure-latex/delaysboxplot-1.pdf}
-\caption{\label{fig:delaysboxplot}Mean Delays by Airline}
-\end{figure}
-Here is a reference to this image: Figure \ref{fig:delaysboxplot}.
-
-A table linking these carrier codes to airline names is available at \url{https://github.com/ismayc/pnwflights14/blob/master/data/airlines.csv}.
-
-\clearpage
-
-Next, we will explore the use of the \texttt{out.extra} chunk option, which can be used to shrink or expand an image loaded from a file by specifying \texttt{"scale=\ "}. Here we use the mathematical graph stored in the ``subdivision.pdf'' file.
-
-Here is a reference to this image: Figure \ref{fig:subd}. Note that \texttt{echo=FALSE} is specified so that the \textbf{R} code is hidden in the document.
-
-\textbf{Knit Child}
-\begin{figure}
-\includegraphics[scale=0.75]{thesis_files/figure-latex/subd-1} \caption{Subdiv. graph}\label{fig:subd}
-\end{figure}
-\hypertarget{footnotes-and-endnotes}{%
-\section{Footnotes and Endnotes}\label{footnotes-and-endnotes}}
-
-You might want to footnote something.\footnote{footnote text} The footnote will be in a smaller font and placed appropriately. Endnotes work in much the same way.
-
-\hypertarget{bibliographies}{%
-\section{Bibliographies}\label{bibliographies}}
-
-Of course you will need to cite things, and you will probably accumulate an armful of sources. There are a variety of tools available for creating a bibliography database (stored with the .bib extension). In addition to BibTeX suggested below, you may want to consider using the free and easy-to-use tool called Zotero. Some Zotero documentation is at \url{http://libguides.reed.edu/citation/zotero}. In addition, a tutorial is available from Middlebury College at \url{http://sites.middlebury.edu/zoteromiddlebury/}.
-
-\emph{R Markdown} uses \emph{pandoc} (\url{http://pandoc.org/}) to build its bibliographies. One nice caveat of this is that you won't have to do a second compile to load in references as standard LaTeX requires. To cite references in your thesis (after creating your bibliography database), place the reference name inside square brackets and precede it by the ``at'' symbol. For example, here's a reference to a book about worrying: {[}\protect\hyperlink{ref-Molina1994}{1}{]}. This \texttt{Molina1994} entry appears in a file called \texttt{thesis.bib} in the \texttt{bib} folder. This bibliography database file was created by a program called BibTeX. You can call this file something else if you like (look at the YAML header in the main .Rmd file) and, by default, is to placed in the \texttt{bib} folder.
-
-For more information about BibTeX and bibliographies, see (\url{http://web.reed.edu/cis/help/latex/index.html})\footnote{\protect\hyperlink{ref-reedweb2007}{2}}. There are three pages on this topic: \emph{bibtex} (which talks about using BibTeX, at \url{http://web.reed.edu/cis/help/latex/bibtex.html}), \emph{bibtexstyles} (about how to find and use the bibliography style that best suits your needs, at \url{http://web.reed.edu/cis/help/latex/bibtexstyles.html}) and \emph{bibman} (which covers how to make and maintain a bibliography by hand, without BibTeX, at \url{http://web.reed.edu/cis/help/latex/bibman.html}). The last page will not be useful unless you have only a few sources.
-
-If you look at the YAML header at the top of the main .Rmd file you can see that we can specify the style of the bibliography by referencing the appropriate csl file. You can download a variety of different style files at \url{https://www.zotero.org/styles}. Make sure to download the file into the csl folder.
-
-\textbf{Tips for Bibliographies}
-\begin{itemize}
-\tightlist
-\item
-  Like with thesis formatting, the sooner you start compiling your bibliography for something as large as thesis, the better.
-\item
-  The cite key (a citation's label) needs to be unique from the other entries.
-\item
-  When you have more than one author or editor, you need to separate each author's name by the word ``and'' e.g.~\texttt{Author\ =\ \{Noble,\ Sam\ and\ Youngberg,\ Jessica\},}.
-\item
-  Bibliographies made using BibTeX (whether manually or using a manager) accept LaTeX markup, so you can italicize and add symbols as necessary.
-\item
-  To force capitalization in an article title or where all lowercase is generally used, bracket the capital letter in curly braces.
-\end{itemize}
-\hypertarget{anything-else}{%
-\section{Anything else?}\label{anything-else}}
-
-If you'd like to see examples of other things in this template, please \href{https://github.com/benmarwick/huskydown/issues/new}{contact us} (email \href{mailto:bmarwick@uw.edu}{\nolinkurl{bmarwick@uw.edu}}) with your suggestions. We love to see people using \emph{R Markdown} for their theses, and are happy to help.
+\hypertarget{complete-ammonia-oxidiser-comammox}{%
+\subsection{Complete ammonia oxidiser (Comammox)}\label{complete-ammonia-oxidiser-comammox}}
 
 \hypertarget{conclusion}{%
 \chapter*{Conclusion}\label{conclusion}}
@@ -451,28 +525,7 @@ This first appendix includes all of the R chunks of code that were hidden throug
 \textbf{In the main Rmd file}
 
 \textbf{In Chapter \ref{ref-labels}:}
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{# This chunk ensures that the huskydown package is}
-\CommentTok{# installed and loaded. This huskydown package includes}
-\CommentTok{# the template files for the thesis and also two functions}
-\CommentTok{# used for labeling and referencing}
-\ControlFlowTok{if}\NormalTok{(}\OperatorTok{!}\KeywordTok{require}\NormalTok{(devtools))}
-  \KeywordTok{install.packages}\NormalTok{(}\StringTok{"devtools"}\NormalTok{, }\DataTypeTok{repos =} \StringTok{"http://cran.rstudio.com"}\NormalTok{)}
-\ControlFlowTok{if}\NormalTok{(}\OperatorTok{!}\KeywordTok{require}\NormalTok{(dplyr))}
-    \KeywordTok{install.packages}\NormalTok{(}\StringTok{"dplyr"}\NormalTok{, }\DataTypeTok{repos =} \StringTok{"http://cran.rstudio.com"}\NormalTok{)}
-\ControlFlowTok{if}\NormalTok{(}\OperatorTok{!}\KeywordTok{require}\NormalTok{(ggplot2))}
-    \KeywordTok{install.packages}\NormalTok{(}\StringTok{"ggplot2"}\NormalTok{, }\DataTypeTok{repos =} \StringTok{"http://cran.rstudio.com"}\NormalTok{)}
-\ControlFlowTok{if}\NormalTok{(}\OperatorTok{!}\KeywordTok{require}\NormalTok{(ggplot2))}
-    \KeywordTok{install.packages}\NormalTok{(}\StringTok{"bookdown"}\NormalTok{, }\DataTypeTok{repos =} \StringTok{"http://cran.rstudio.com"}\NormalTok{)}
-\ControlFlowTok{if}\NormalTok{(}\OperatorTok{!}\KeywordTok{require}\NormalTok{(gauchodown))\{}
-  \KeywordTok{library}\NormalTok{(devtools)}
-\NormalTok{  devtools}\OperatorTok{::}\KeywordTok{install_github}\NormalTok{(}\StringTok{"benmarwick/gauchodown"}\NormalTok{)}
-\NormalTok{  \}}
-\KeywordTok{library}\NormalTok{(gauchodown)}
-\NormalTok{flights <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"data/flights.csv"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
+
 \hypertarget{the-second-appendix-for-fun}{%
 \chapter{The Second Appendix, for Fun}\label{the-second-appendix-for-fun}}
 
@@ -488,7 +541,7 @@ This document was typeset using the XeTeX typesetting system, and the \href{http
 
 The source files for this thesis, along with all the data files, have been organised into an R package, xxx, which is available at \url{https://github.com/xxx/xxx}. A hard copy of the thesis can be found in the University of Washington library.
 
-This version of the thesis was generated on 2021-01-11 16:32:36. The repository is currently at this commit:
+This version of the thesis was generated on 2021-01-19 19:48:04. The repository is currently at this commit:
 
 The computational environment that was used to generate this version is as follows:
 \begin{verbatim}
@@ -502,43 +555,33 @@ The computational environment that was used to generate this version is as follo
  collate  English_United States.1252  
  ctype    English_United States.1252  
  tz       Europe/Berlin               
- date     2021-01-11                  
+ date     2021-01-19                  
 
 - Packages -------------------------------------------------------------------
  package     * version date       lib source                               
- abind         1.4-5   2016-07-21 [1] CRAN (R 4.0.3)                       
  assertthat    0.2.1   2019-03-21 [1] CRAN (R 4.0.3)                       
  backports     1.2.0   2020-11-02 [1] CRAN (R 4.0.3)                       
  bookdown      0.21.6  2021-01-11 [1] Github (rstudio/bookdown@92c59d3)    
  broom         0.7.3   2020-12-16 [1] CRAN (R 4.0.3)                       
  callr         3.5.1   2020-10-13 [1] CRAN (R 4.0.3)                       
- car           3.0-10  2020-09-29 [1] CRAN (R 4.0.3)                       
- carData       3.0-4   2020-05-22 [1] CRAN (R 4.0.3)                       
  cellranger    1.1.0   2016-07-27 [1] CRAN (R 4.0.3)                       
  cli           2.2.0   2020-11-20 [1] CRAN (R 4.0.3)                       
  colorspace    2.0-0   2020-11-11 [1] CRAN (R 4.0.3)                       
- cowplot       1.1.1   2020-12-30 [1] CRAN (R 4.0.3)                       
  crayon        1.3.4   2017-09-16 [1] CRAN (R 4.0.3)                       
- curl          4.3     2019-12-02 [1] CRAN (R 4.0.3)                       
- data.table    1.13.4  2020-12-08 [1] CRAN (R 4.0.3)                       
  DBI           1.1.0   2019-12-15 [1] CRAN (R 4.0.3)                       
  dbplyr        2.0.0   2020-11-03 [1] CRAN (R 4.0.3)                       
  desc          1.2.0   2018-05-01 [1] CRAN (R 4.0.3)                       
- devtools    * 2.3.2   2020-09-18 [1] CRAN (R 4.0.3)                       
+ devtools      2.3.2   2020-09-18 [1] CRAN (R 4.0.3)                       
  digest        0.6.27  2020-10-24 [1] CRAN (R 4.0.3)                       
  dplyr       * 1.0.2   2020-08-18 [1] CRAN (R 4.0.3)                       
  ellipsis      0.3.1   2020-05-15 [1] CRAN (R 4.0.3)                       
  evaluate      0.14    2019-05-28 [1] CRAN (R 4.0.3)                       
  fansi         0.4.1   2020-01-08 [1] CRAN (R 4.0.3)                       
- farver        2.0.3   2020-01-16 [1] CRAN (R 4.0.3)                       
  forcats     * 0.5.0   2020-03-01 [1] CRAN (R 4.0.3)                       
- foreign       0.8-80  2020-05-24 [2] CRAN (R 4.0.3)                       
  fs            1.5.0   2020-07-31 [1] CRAN (R 4.0.3)                       
- gauchodown  * 1.0     2021-01-07 [1] Github (danovando/gauchodown@d9a19b8)
+ gauchodown    1.0     2021-01-07 [1] Github (danovando/gauchodown@d9a19b8)
  generics      0.1.0   2020-10-31 [1] CRAN (R 4.0.3)                       
  ggplot2     * 3.3.3   2020-12-30 [1] CRAN (R 4.0.3)                       
- ggpubr      * 0.4.0   2020-06-27 [1] CRAN (R 4.0.3)                       
- ggsignif      0.6.0   2019-08-08 [1] CRAN (R 4.0.3)                       
  git2r         0.27.1  2020-05-03 [1] CRAN (R 4.0.3)                       
  glue          1.4.2   2020-08-27 [1] CRAN (R 4.0.3)                       
  gtable        0.3.0   2019-03-25 [1] CRAN (R 4.0.3)                       
@@ -548,15 +591,14 @@ The computational environment that was used to generate this version is as follo
  htmltools     0.5.0   2020-06-16 [1] CRAN (R 4.0.3)                       
  httr          1.4.2   2020-07-20 [1] CRAN (R 4.0.3)                       
  jsonlite      1.7.2   2020-12-09 [1] CRAN (R 4.0.3)                       
- knitr         1.30    2020-09-22 [1] CRAN (R 4.0.3)                       
- labeling      0.4.2   2020-10-20 [1] CRAN (R 4.0.3)                       
+ kableExtra  * 1.3.1   2020-10-22 [1] CRAN (R 4.0.3)                       
+ knitr       * 1.30    2020-09-22 [1] CRAN (R 4.0.3)                       
  lifecycle     0.2.0   2020-03-06 [1] CRAN (R 4.0.3)                       
  lubridate     1.7.9.2 2020-11-13 [1] CRAN (R 4.0.3)                       
  magrittr      2.0.1   2020-11-17 [1] CRAN (R 4.0.3)                       
  memoise       1.1.0   2017-04-21 [1] CRAN (R 4.0.3)                       
  modelr        0.1.8   2020-05-19 [1] CRAN (R 4.0.3)                       
  munsell       0.5.0   2018-06-12 [1] CRAN (R 4.0.3)                       
- openxlsx      4.2.3   2020-10-27 [1] CRAN (R 4.0.3)                       
  pillar        1.4.7   2020-11-20 [1] CRAN (R 4.0.3)                       
  pkgbuild      1.2.0   2020-12-15 [1] CRAN (R 4.0.3)                       
  pkgconfig     2.0.3   2019-09-22 [1] CRAN (R 4.0.3)                       
@@ -571,11 +613,9 @@ The computational environment that was used to generate this version is as follo
  readxl        1.3.1   2019-03-13 [1] CRAN (R 4.0.3)                       
  remotes       2.2.0   2020-07-21 [1] CRAN (R 4.0.3)                       
  reprex        0.3.0   2019-05-16 [1] CRAN (R 4.0.3)                       
- rio           0.5.16  2018-11-26 [1] CRAN (R 4.0.3)                       
  rlang         0.4.10  2020-12-30 [1] CRAN (R 4.0.3)                       
  rmarkdown     2.6.4   2021-01-11 [1] Github (rstudio/rmarkdown@2e8572e)   
  rprojroot     2.0.2   2020-11-15 [1] CRAN (R 4.0.3)                       
- rstatix       0.6.0   2020-06-18 [1] CRAN (R 4.0.3)                       
  rstudioapi    0.13    2020-11-12 [1] CRAN (R 4.0.3)                       
  rvest         0.3.6   2020-07-25 [1] CRAN (R 4.0.3)                       
  scales        1.1.1   2020-05-11 [1] CRAN (R 4.0.3)                       
@@ -587,13 +627,14 @@ The computational environment that was used to generate this version is as follo
  tidyr       * 1.1.2   2020-08-27 [1] CRAN (R 4.0.3)                       
  tidyselect    1.1.0   2020-05-11 [1] CRAN (R 4.0.3)                       
  tidyverse   * 1.3.0   2019-11-21 [1] CRAN (R 4.0.3)                       
- usethis     * 2.0.0   2020-12-10 [1] CRAN (R 4.0.3)                       
+ usethis       2.0.0   2020-12-10 [1] CRAN (R 4.0.3)                       
  vctrs         0.3.6   2020-12-17 [1] CRAN (R 4.0.3)                       
+ viridisLite   0.3.0   2018-02-01 [1] CRAN (R 4.0.3)                       
+ webshot       0.5.2   2019-11-22 [1] CRAN (R 4.0.3)                       
  withr         2.3.0   2020-09-22 [1] CRAN (R 4.0.3)                       
  xfun          0.20    2021-01-06 [1] CRAN (R 4.0.3)                       
  xml2          1.3.2   2020-04-23 [1] CRAN (R 4.0.3)                       
  yaml          2.2.1   2020-02-01 [1] CRAN (R 4.0.3)                       
- zip           2.1.1   2020-08-27 [1] CRAN (R 4.0.3)                       
 
 [1] D:/rlib
 [2] D:/Program Files/R/R-4.0.3/library
@@ -603,13 +644,6 @@ The computational environment that was used to generate this version is as follo
 \addcontentsline{toc}{chapter}{References}
 
 Placeholder
-
-\hypertarget{refs}{}
-\leavevmode\hypertarget{ref-Molina1994}{}%
-{[}1{]} S. T. Molina and T. D. Borkovec, ``The Penn State worry questionnaire: Psychometric properties and associated characteristics,'' in \emph{Worrying: Perspectives on theory, assessment and treatment}, G. C. L. Davey and F. Tallis, Eds. New York: Wiley, 1994, pp. 265--283.
-
-\leavevmode\hypertarget{ref-reedweb2007}{}%
-{[}2{]} Reed~College, ``LaTeX your document.'' 2007 {[}Online{]}. Available: \url{http://web.reed.edu/cis/help/LaTeX/index.html}
 
 \end{ucmainmatter}
 \end{document}
@@ -625,7 +659,6 @@ Placeholder
 
 \def\cleardoublepage{\clearpage\if@openright \ifodd\c@page\else
   \hbox{}
-  \vspace*{\fill}
   \begin{center}
     This page intentionally left blank
   \end{center}

@@ -25,6 +25,36 @@ trt <- data.frame(
    trt$Sulfur <-linebreak(trt$Sulfur, align ="l")
    trt$Fungicides <-linebreak(trt$Fungicides, align ="l")
    trt$Regulators <-linebreak(trt$Regulators, align ="l")
+   
+   
+smpl <- data.frame(
+ Name = c("Soil", "Rhizosphere"),
+ Source= c("Soil loosely \nbound to root system", "Soil closely \nbound to roots"),
+ Method.of.collection = c("After crop was dug out, the\n loose bulk soil was removed, and the\n remaining soil shaken off.", "After “Soil” sample were collected,\n the soil bonded to the root was washed off\nand pelleted.")
+)
+
+# formatting
+
+   smpl$Name = linebreak(smpl$Name, align ="l")
+   smpl$Source = linebreak(smpl$Source, align ="l")
+   smpl$Method.of.collection = linebreak(smpl$Method.of.collection, align ="l")
+   
+   
+prmr <- data.frame(
+    target=c("16s rRNA", "amoA", "amoA", "Commamox"),
+    kingdom=c("Bacteria and\nArchaea",  "Archaea", "Bacteria", "Bacteria"),
+    sequence=c("cctacgggnggcwgcag (341F)/\nattaccgcggctgctgg\n(518R)",
+               "atggtctggctwagacg(CrenamoA23F)/\ngccatccatctgtatgtcca\n(CrenamoA616R)",
+               "ggggtttctactggtggt(1F)/\ncccctckgsaaagccttcttc(2R)", 
+               "aggngaytgggayttctgg(comamoA F)/\ncggacawabrtgaabcccat-(comamoA R)"),
+    subtarget = c("V3-Region", "α-subunit", "α-subunit", "Conserved region")
+    #name=c("CrenamoA23F/\nCrenamoA616R", "1F/\n2R", "comamoA F/\nR"),
+)
+#formatting
+
+   prmr$target <- linebreak(prmr$target, align="l")
+   prmr$kingdom <- linebreak(prmr$kingdom, align="l")
+   prmr$sequence <- linebreak(prmr$sequence, align="l")
 ```
 
 
@@ -53,14 +83,9 @@ kbl(soilparam, booktabs = T, caption = "Parameters and concentrations of chemica
 ```
 The chemical and physical quality of the fields soil was determined by a previous study (Table \@ref(tab:soilParameters)), which used the same field. Nitrogen and magnesium were measured by $\mathrm{CaCl_2}$ extraction. Phosphorus, potassium and sodium was measured by the double lactate method. Calcium was measured by the calcium-acetate-lactate method. pH was measured in a KCl suspension. Total carbon, nitrogen and sulfur were measured in an elemental analyzer.  The topsoil on the site is a loamy sand and ranges from Su3 to Sl3 across the blocks.
 
-
-
-
-
-
 ### Treatment of fertilizer, fungicides and growth regulators 
 All plots were treated with an herbicide in form of *Viper™ Compact (Corteva Agriscience)* to suppress weeds at 26 days after sowing,. The herbicide was applied to lower nutritional and spatial struggle between the wheat crop and plants of no interest. 
-Treatment was categorized into two factors. The components were nitrogen fertilizer, sulfur fertilizer, magnesium fertilizer, fungicides and growth regulators. The fertilizers were grouped into one treatment factor. Fungicide and growth regulators were grouped into a second treatment factor. Both factors were binary (Application [Yes] / No Application [No]) and crossed. Resulting in one treatment for each factor plus one crossed treatment and a control treatment. Fertilizer treatment was applied as calcium ammonium nitrate (CAN), magnesium oxide (MgO) and sulfur (S). All were added to the wheat plots 179 days after sowing. To secure the nitrogen supply in the fertilized plots, another dosage of CAN was added 201 days after sowing. Fungicides were applied to the wheat plots as *Champion ® (BASF)* at 210 and *Seguris \copyright (Syngenta)* at 232 days after sowing. Growth regulators were applied in form of *Calma (NuFarm)* and *CCC 720 (Bayer Agrar)* both at 203 days after sowing. A detailed list of the herbicide that was applied to all plots, fertilizers, fungicides and growth regulators and their active ingredients is listed in 
+Treatment was categorized into two factors. The components were nitrogen fertilizer, sulfur fertilizer, magnesium fertilizer, fungicides and growth regulators. The fertilizers were grouped into one treatment factor. Fungicide and growth regulators were grouped into a second treatment factor. Both factors were binary (Application [Yes] / No Application [No]) and crossed. Resulting in one treatment for each factor plus one crossed treatment and a control treatment. Fertilizer treatment was applied as calcium ammonium nitrate (CAN), magnesium oxide (MgO) and sulfur (S). All were added to the wheat plots 179 days after sowing. To secure the nitrogen supply in the fertilized plots, another dosage of CAN was added 201 days after sowing. Fungicides were applied to the wheat plots as *Champion ® (BASF)* at 210 and *Seguris \copyright (Syngenta)* at 232 days after sowing. Growth regulators were applied in form of *Calma (NuFarm)* and *CCC 720 (Bayer Agrar)* both at 203 days after sowing. A detailed list of the herbicide that was applied to all plots, fertilizers, fungicides and growth regulators and their active ingredients is listed in Table \@ref(tab:Trt). 
 
 ```{r Trt, echo=FALSE, message=FALSE}
 library(kableExtra)
@@ -74,110 +99,40 @@ trt %>%
   #footnote(general= table_note, 
            #general_title = "Note.", footnote_as_chunk = T, threeparttable = T) #enforces linebreak for footnote
 ```
-<!-- MATH and PHYSICS majors: Uncomment the following section -->
-<!--
-$$\sum_{j=1}^n (\delta\theta_j)^2 \leq {{\beta_i^2}\over{\delta_i^2 + \rho_i^2}}
-\left[ 2\rho_i^2 + {\delta_i^2\beta_i^2\over{\delta_i^2 + \rho_i^2}} \right] \equiv \omega_i^2
-$$
 
-From Informational Dynamics, we have the following (Dave Braden):
+The plots were sampled at the tillering (217 days after sowing) and stem elongation stage (265 days after sowing) of the wheat crop. Before the first sampling timepoint all treatments factors had been applied. Between the first and second sampling point another dosage of fungicide had been applied.
+On five representative locations within each plot one crop was dug out with a spade. The crop was struck on the spade three times to remove loose bulk soil. The roots were then struck into a collection container to collect the rhizosphere soil. After collecting the rhizosphere soil sample, the root was separated from the shoot. Root and rhizosphere soil were stored separately in plastic bags. From the rhizosphere soil a representative subsample in a 15 ml falcon tube was taken.  All samples were stored on dry ice until the subsample of the rhizosphere soil could be stored at -80°C, root and the remaining rhizosphere soil at -20°C in the research center. The samples were kept in these conditions to prevent the microorganism community structure to change in the sample. 
+In the laboratory the remaining soil and microorganisms attached to the roots were washed off. A subsample of the root was placed inside a 50 ml falcon tube. 1X Phosphate-buffered saline (PBS) solution (kept at 4°C) was added to detach and suspend the remaining soil and microorganisms attached to the roots. The tube was shaken by hand three times and shaken on a horizontal shaker for 10 min on 400 rpm. The washed roots were removed from the falcon tube. Again, the falcon tube was filled with 1x PBS to the 50 ml mark. The suspension was centrifuged at 4500 x g for 30 min at 4°C to pellet the washed off soil and microorganisms. After the centrifuging, the supernatant was discarded. The pellet was resuspended in 4 ml 1x PBS solution and vortexed. The suspension was transferred into 2 ml Eppendorf tubes and centrifuged at 4500 x g for 5 min. Again, the supernatant was discarded. The remaining liquid was stored in separate tubes at -80°C. Lastly the washed roots were dried at 60°C in a drying oven for three days and then milled.
+The samples are named as the following in this thesis. The rhizosphere soil sampled at the field is named soil. The washed of soil from the root system is called rhizosphere (Table \@ref(tab:sample)). 
 
-After _n_ such encounters the posterior density for $\theta$ is
-
-$$
-\pi(\theta|X_1< y_1,\dots,X_n<y_n) \varpropto \pi(\theta) \prod_{i=1}^n\int_{-\infty}^{y_i}
-   \exp\left(-{(x-\theta)^2\over{2\sigma^2}}\right)\ dx
-$$
-
-Another equation:
-
-$$\det\left|\,\begin{matrix}%
-c_0&c_1\hfill&c_2\hfill&\ldots&c_n\hfill\cr
-c_1&c_2\hfill&c_3\hfill&\ldots&c_{n+1}\hfill\cr
-c_2&c_3\hfill&c_4\hfill&\ldots&c_{n+2}\hfill\cr
-\,\vdots\hfill&\,\vdots\hfill&
-  \,\vdots\hfill&&\,\vdots\hfill\cr
-c_n&c_{n+1}\hfill&c_{n+2}\hfill&\ldots&c_{2n}\hfill\cr
-\end{matrix}\right|>0$$
+```{r sample, echo=FALSE, message=FALSE}
+library(kableExtra)
+smpl %>%
+   kbl(booktabs = T,
+       escape = F, 
+       caption = "Sample sources")
+  #footnote(general= table_note, 
+           #general_title = "Note.", footnote_as_chunk = T, threeparttable = T) #enforces linebreak for footnote
+```
 
 
-Lapidus and Pindar, Numerical Solution of Partial Differential Equations in Science and
-Engineering.  Page 54
+## Chemical analysis soil and roots
+Nitrogen concentration may vary in soil within treatments due to errors in application or varying spatial availability and influence microorganism community structures. Therefore, the plant available nitrate and ammonium concentration was measured in the plots. In addition, subsamples of the wet soils were dried at 20°C for 3 days, milled and analyzed for total carbon in nitrogen in an elemental analyzer. Same was done for the dried roots from the sampling process. 
 
-$$
-\int_t\left\{\sum_{j=1}^3 T_j \left({d\phi_j\over dt}+k\phi_j\right)-kT_e\right\}w_i(t)\ dt=0,
-   \qquad\quad i=1,2,3.
-$$
+## Amplification of target genes using PCR
 
-L\&P  Galerkin method weighting functions.  Page 55
+The diet of soil-living microorganisms depends on their ability to alter chemical compounds. They use enzymes to catalyze favorable reaction of chemical compounds in and around the soil to gain energy for themselves. Their ability to produce these enzymes is dictated by the genome of the microorganisms. The blueprints for the enzymes are encoded in genes of the genome. The genes can be copied and multiplied by DNA polymerases. Here we use the DNA polymerases to copy genes of interest in the total genomic DNA of our samples and quantify them with DNA dyes.  
+For this project genes of soil nitrifying microorganisms (transformation of ammonia to nitrate) were targeted. Ammonium-oxidizing archaea (AOA) and bacteria (AOB) are using ammonia monooxygenases (AMO) to oxidize ammonia in the soil. Under aerobic conditions ammonia is oxidized to hydroxylamine, which is then stepwise transformed to nitrate by other microorganisms. In contrast, Comammox (“complete ammonia oxidizers”) can completely oxidize ammonia to nitrate in one step and one bacterium. This process is used by the microorganisms to gain energy.
+In amoA we targeted the subunit A in the sequence with established primers for ammonium-oxidizing archaea and bacteria (REFERENCE TABLE). For Comammox bacteria we used a primer 
+set published in 2019 (Zhao et al. 2019). For general abundance we targeted the ribosomal 16s RNA.
 
-$$
-\sum_{j=1}^3 T_j\int_0^1\left\{{d\phi_j\over dt} + k\phi_j\right\} \phi_i\ dt
-   = \int_{0}^1k\,T_e\phi_idt, \qquad i=1,2,3 $$
-
-Another L\&P (p145)
-
-$$
-\int_{-1}^1\!\int_{-1}^1\!\int_{-1}^1 f\big(\xi,\eta,\zeta\big)
-   = \sum_{k=1}^n\sum_{j=1}^n\sum_{i=1}^n w_i w_j w_k f\big( \xi,\eta,\zeta\big).
-$$
-
-Another L\&P (p126)
-
-$$
-\int_{A_e} (\,\cdot\,) dx dy = \int_{-1}^1\!\int_{-1}^1 (\,\cdot\,) \det[J] d\xi d\eta.
-$$
--->
-
-## Chemistry 101: Symbols
-
-Chemical formulas will look best if they are not italicized. Get around math mode's automatic italicizing in LaTeX by using the argument `$\mathrm{formula here}$`, with your formula inside the curly brackets.  (Notice the use of the backticks here which enclose text that acts as code.)
-
-So, $\mathrm{Fe_2^{2+}Cr_2O_4}$ is written `$\mathrm{Fe_2^{2+}Cr_2O_4}$`.
-
-<!--
-The \noindent command below does what you'd expect:  it forces the current line/paragraph to not indent. This was done here to match the format of the LaTeX thesis PDF.
--->
-
-\noindent Exponent or Superscript: $\mathrm{O^-}$
-
-\noindent Subscript: $\mathrm{CH_4}$
-
-To stack numbers or letters as in $\mathrm{Fe_2^{2+}}$, the subscript is defined first, and then the superscript is defined.
-
-\noindent Bullet: CuCl $\bullet$ $\mathrm{7H_{2}O}$
-
-
-\noindent Delta: $\Delta$
-
-\noindent Reaction Arrows: $\longrightarrow$ or  $\xrightarrow{solution}$
-
-\noindent Resonance Arrows: $\leftrightarrow$
-
-\noindent Reversible Reaction Arrows: $\rightleftharpoons$
-
-### Typesetting reactions
-
-You may wish to put your reaction in an equation environment, which means that LaTeX will place the reaction where it fits and will number the equations for you. 
-
-\begin{equation}
-  \mathrm{C_6H_{12}O_6  + 6O_2} \longrightarrow \mathrm{6CO_2 + 6H_2O}
-  (\#eq:reaction)
-\end{equation}
-
-We can reference this combustion of glucose reaction via Equation \@ref(eq:reaction).
-
-### Other examples of reactions
-
-$\mathrm{NH_4Cl_{(s)}}$ $\rightleftharpoons$ $\mathrm{NH_{3(g)}+HCl_{(g)}}$
-
-\noindent $\mathrm{MeCH_2Br + Mg}$ $\xrightarrow[below]{above}$ $\mathrm{MeCH_2\bullet Mg \bullet Br}$
-
-## Physics
-
-Many of the symbols you will need can be found on the math page <http://web.reed.edu/cis/help/latex/math.html> and the Comprehensive LaTeX Symbol Guide (<http://mirror.utexas.edu/ctan/info/symbols/comprehensive/symbols-letter.pdf>).
-
-## Biology
-
-You will probably find the resources at <http://www.lecb.ncifcrf.gov/~toms/latex.html> helpful, particularly the links to bsts for various journals. You may also be interested in TeXShade for nucleotide typesetting (<http://homepages.uni-tuebingen.de/beitz/txe.html>).  Be sure to read the proceeding chapter on graphics and tables.
-
+```{r primerTable, echo=FALSE, message=FALSE}
+library(kableExtra)
+prmr %>%
+   kbl(booktabs = T,
+       escape = F, 
+       caption = "Primer table", 
+       col.names =linebreak(c("Target\ngene", "Kingdom", "Primer Sequence F (5-3')/\n Primer Sequence R (5-3')", "Subtarget"), align = "l"))
+  #footnote(general= table_note, 
+           #general_title = "Note.", footnote_as_chunk = T, threeparttable = T) #enforces linebreak for footnote
+```

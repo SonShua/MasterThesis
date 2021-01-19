@@ -38,16 +38,18 @@ smpl <- data.frame(
    smpl$Name = linebreak(smpl$Name, align ="l")
    smpl$Source = linebreak(smpl$Source, align ="l")
    smpl$Method.of.collection = linebreak(smpl$Method.of.collection, align ="l")
-   
-   
+
+# Possible to italcize and do other stuff with it   
+   #amoA <- text_spec("amoA", italic=T)
+   #rna <- text_spec("16s rRNA", italic=T)
 prmr <- data.frame(
-    target=c("16s rRNA", "amoA", "amoA", "Commamox"),
+    target=c("\\textit{16s rRNA}", "\\textit{amoA}", "\\textit{amoA}", "Commamox"),
     kingdom=c("Bacteria and\nArchaea",  "Archaea", "Bacteria", "Bacteria"),
     sequence=c("cctacgggnggcwgcag (341F)/\nattaccgcggctgctgg\n(518R)",
                "atggtctggctwagacg(CrenamoA23F)/\ngccatccatctgtatgtcca\n(CrenamoA616R)",
                "ggggtttctactggtggt(1F)/\ncccctckgsaaagccttcttc(2R)", 
                "aggngaytgggayttctgg(comamoA F)/\ncggacawabrtgaabcccat-(comamoA R)"),
-    subtarget = c("V3-Region", "α-subunit", "α-subunit", "Conserved region")
+    subtarget = c("V3-Region", "α-subunit", "α-subunit", "Conserve\nregion")
     #name=c("CrenamoA23F/\nCrenamoA616R", "1F/\n2R", "comamoA F/\nR"),
 )
 #formatting
@@ -55,6 +57,37 @@ prmr <- data.frame(
    prmr$target <- linebreak(prmr$target, align="l")
    prmr$kingdom <- linebreak(prmr$kingdom, align="l")
    prmr$sequence <- linebreak(prmr$sequence, align="l")
+   #prmr$target = cell_spec(prmr$target, italic=T)
+   
+cycl <- data.frame(
+   empty= c("Thermal cycling \nprogram\n(Initial denaturing,\nAmount of cyclesx\n(Denaturing,\nAnnealing,\nExtension))"),
+   rna=c("95°C x 60 sec,\n30x\n(95°C x 15 sec,\n59° C x 30 sec,\n68° C x 60 sec)"),
+   aoa=c("95°C x 60 sec,\n30x\n(95°C x 15 sec,\n54° C x 45 sec,\n68° C x 30 sec)"),
+   aob=c("95°C x 60 sec,\n30x\n(95°C x 15 sec,\n63° C x 45 sec,\n68° C x 30 sec)"),
+   coma=c("95°C x 60 sec,\n40x\n(95°C x 15 sec,\n53° C x 30 sec,\n72° C x 60 sec)")
+)
+   cycl$empty <- linebreak(cycl$empty, align="l")
+   cycl$rna <- linebreak(cycl$rna, align="l")
+   cycl$aoa <- linebreak(cycl$aoa, align="l")
+   cycl$aob <- linebreak(cycl$aob, align="l")
+   cycl$coma <- linebreak(cycl$coma, align="l")
+   
+stdseq <- data.frame(
+    target=c("\\textit{16s rRNA}", "\\textit{amoA}", "\\textit{amoA}", "Commamox"),
+    kingdom=c("Bacteria and\nArchaea",  "Archaea", "Bacteria", "Bacteria"),
+    name=c("\\textit{Wolinella} \n \\textit{succinogenes}", "\\textit{Nitrososphaera} \n \\textit{viennensis}", "\\textit{Nitrosomonas} \n \\textit{europaea}", "\\textit{Nitrospira} \n \\textit{nitrificans}"),
+    id = c("DSM 1740", "EN76", "ATCC 19718", "302411"),
+    lgn1= c("295","728", "591", ""),
+    lgn2= c("194", "628", "491", "")
+)
+
+   stdseq$target <- linebreak(stdseq$target, align="l")
+   stdseq$kingdom <- linebreak(stdseq$kingdom, align="l")
+   stdseq$name <- linebreak(stdseq$name, align="l")
+   stdseq$id <- linebreak(stdseq$id, align="l")
+   stdseq$lgn1 <- linebreak(stdseq$lgn1, align="l")
+   stdseq$lgn2 <- linebreak(stdseq$lgn2, align="l")
+   
 ```
 
 
@@ -75,7 +108,6 @@ This study determined how soil-living microorganisms are affected by inputs used
 
 An agricultural field in experimental station ZALF in Brandenburg, Germany (53°21'58.5"N 13°48'13.3"E) was used to study the effects of agriculture on soil microorganisms. The site has been used agriculturally for more than 30 years.  On the field, 3x7m plots were arranged in blocks. On 18.09.2019 winter wheat (*Triticum aestivum*, variety: RGT Reform) was sown in a density of 280 seeds/$\mathrm{m^2}$ on the assigned plots.  To avoid cross-over effects a buffer of rye (*Secale cereal*) was sown between blocks.
 ```{r soilParameters, echo=FALSE, message=FALSE}
-
 kbl(soilparam, booktabs = T, caption = "Parameters and concentrations of chemical compounds in the experimental sites soil. Measured by a previous study using the same site.")%>% #print table 
   kable_styling(position = "center")#%>%
   #footnote(general= table_note, 
@@ -120,19 +152,106 @@ smpl %>%
 Nitrogen concentration may vary in soil within treatments due to errors in application or varying spatial availability and influence microorganism community structures. Therefore, the plant available nitrate and ammonium concentration was measured in the plots. In addition, subsamples of the wet soils were dried at 20°C for 3 days, milled and analyzed for total carbon in nitrogen in an elemental analyzer. Same was done for the dried roots from the sampling process. 
 
 ## Amplification of target genes using PCR
+The diet of soil-living microorganisms depends on their ability to alter chemical compounds. They use enzymes to catalyze favorable reaction of chemical compounds in and around the soil to gain energy for themselves. Their ability to produce these enzymes is dictated by the genome of the microorganisms. The blueprints for the enzymes are encoded in genes of the genome. The genes can be copied and multiplied by DNA polymerases. Here, DNA polymerases were used to copy genes of interest in the total genomic DNA of our samples and quantify them with DNA dyes.  
 
-The diet of soil-living microorganisms depends on their ability to alter chemical compounds. They use enzymes to catalyze favorable reaction of chemical compounds in and around the soil to gain energy for themselves. Their ability to produce these enzymes is dictated by the genome of the microorganisms. The blueprints for the enzymes are encoded in genes of the genome. The genes can be copied and multiplied by DNA polymerases. Here we use the DNA polymerases to copy genes of interest in the total genomic DNA of our samples and quantify them with DNA dyes.  
-For this project genes of soil nitrifying microorganisms (transformation of ammonia to nitrate) were targeted. Ammonium-oxidizing archaea (AOA) and bacteria (AOB) are using ammonia monooxygenases (AMO) to oxidize ammonia in the soil. Under aerobic conditions ammonia is oxidized to hydroxylamine, which is then stepwise transformed to nitrate by other microorganisms. In contrast, Comammox (“complete ammonia oxidizers”) can completely oxidize ammonia to nitrate in one step and one bacterium. This process is used by the microorganisms to gain energy.
-In amoA we targeted the subunit A in the sequence with established primers for ammonium-oxidizing archaea and bacteria (REFERENCE TABLE). For Comammox bacteria we used a primer 
-set published in 2019 (Zhao et al. 2019). For general abundance we targeted the ribosomal 16s RNA.
+### Extraction of genomic DNA from samples 
+The genomic DNA of all samples was extracted and purified. In soils contaminants are present, that may interfere with the downstream analysis. A suitable extraction kit that separate the genomic DNA from the contaminants was needed. The *DNeasy PowerLyzer PowerSoil Kit (Qiagen)* was used. In the “Quick-Start Protocol” step 8 and 10 were modified. At both steps the amount of supernatant transferred was changed to 700 µl. This was to increase DNA yield (step 8) and lower the chance of splashing (step 10). After extraction, the DNA concentration [ng/ µl] and purity [260/230nm] was measured spectrophotometrically with a *Nanodrop 2000 (ThermoFischer)*. The extracted solution was stored in *LoBind® Tubes (Eppendorf)* at -80°C to minimize DNA binding and therefore loss to the tube. Before freezing, a working stock solution with 25% of the original was prepared and frozen. Extractions rounds were grouped according to treatments to avoid cross-contamination of DNA. The workbench was cleaned between extraction rounds with 5% sodium hypochlorite solution and wiped of with distilled water. 
+
+### Target genes and primers
+In the total genomic DNA ammonia monooxygenase (*amoA*) was targeted. An essential gene for the nitrification of ammonia. Ammonia monooxygenase catalyzes the oxidization of ammonia to hydroxylamine, an intermediate, which can be further converted by other microorganisms to nitric oxide, nitrite and nitrate. *amoA* can be present in the genome of bacteria and archaea. There is variation in the *amoA* sequence between bacteria and archaea, which make the target genes distinguishable from another. Another distinguishable variation of *amoA* is in the genome of recently discovered **co**mplete **am**monia **ox**idizer (Comammox) bacteria, which can complete the whole conversion process of ammonia to nitrate.  Additionally, we targeted the V3 region of the 16S ribosomal RNA which is highly conserved and ubiquitously present in mostly all bacteria and archaea species genomes. This was utilized as a proxy of general abundance of bacteria and archaea in our samples. 
+Forward (5-3’) and reverse (3-5’) oligonucleotide primers suited to capture *amoA* of bacterial, archaea and comammox origin were used. For the *16s rRNA* primers 341F and 518R were used. The primers anneal to their complementary part of a single stranded version of the target gene. The DNA polymerase uses the and replicates the complementary strand.  The sequences of the primer sets are listed in Table (\@ref(tab:primerTable). The sequence between where a primer sets forward and reverse primer attach to in the genome is the sequence that the polymerase is going to replicate. This sequence is only part of the whole target gene. 
 
 ```{r primerTable, echo=FALSE, message=FALSE}
 library(kableExtra)
 prmr %>%
    kbl(booktabs = T,
        escape = F, 
-       caption = "Primer table", 
-       col.names =linebreak(c("Target\ngene", "Kingdom", "Primer Sequence F (5-3')/\n Primer Sequence R (5-3')", "Subtarget"), align = "l"))
+       caption = "Primer sequences used to amplify target sequences. Targets are functional genes \\textit{amoA} and conserved regions of bacteria and archaea linked to ammonia nitrification (except \\textit{16s rRNA}).", 
+       col.names =linebreak(c("Target", "Kingdom", "Primer Sequence F (5-3')/\n Primer Sequence R (5-3')", "Subtarget"), align = "l")
+       )
   #footnote(general= table_note, 
            #general_title = "Note.", footnote_as_chunk = T, threeparttable = T) #enforces linebreak for footnote
 ```
+
+
+### Polymerase chain reaction to copy target genes from genomic DNA 
+In thermal cycling processes we copied and amplified the target genes in the genomic DNA of our samples. For this we used oligonucleotide primers (Table 2), DNA polymerases, deoxynucleotides (dNTPS), genomic DNA from our samples and a thermal cycler. The cycling consisted out of a high temperature that will denature the double stranded DNA into single stranded DNA , a primer specific annealing temperature will allow the primers to attach to the single stranded DNA, and an extension and elongation step where the DNA polymerase will attach to the annealed primers and copy and amplify the sequence. Timing of the temperature is essential. The thermal cycling programs for each target gene is listed in Table 3
+
+```{r cycles, echo=FALSE, message=FALSE}
+library(kableExtra)
+cycl %>%
+   kbl(booktabs = T,
+       escape = F, 
+       caption = "Thermal cycling program for polymerase chain reaction to amplify target genes in genomic DNA samples using DNA polymerase. Cycles performed in qPCR instrument.",
+       col.names = linebreak(c("", "\\textit{amoA}\n(Archaea)", "\\textit{amoA}\n(Bacteria)", "Commamox", "\\textit{16s rRNA}\n(Bacteria and Archaea"))
+       )
+  #footnote(general= table_note, 
+           #general_title = "Note.", footnote_as_chunk = T, threeparttable = T) #enforces linebreak for footnote
+```
+
+### Quantitation of polymerase chain reaction products by standards
+The thermal cycles of the polymerase chain reaction were performed in **quantitative** polymerase chain reaction instrument. In addition to the thermal cycler, the instrument detected fluorescence signals by a fluorimeter. The instruments input for samples was organized in wells. The reagents for the polymerase chain reaction were mixed with a DNA template and pipetted into the wells. The reagent mix contained dNTPs, DNA-polymerase, MgCl2 and SYBR Green. SYBR Green is a dye binding to double-stranded DNA sequences and emitting a fluorescence signal. In the thermal cycling process the instruments fluorimeter measured the fluorescence at the extension step of the thermal cycle in each well. Then, the signal strength is plotted against the running cycle number. A quantification cycle (CQ) is defined, when the fluorescence signal can be differentiated from the background fluorescence signal.  To relate the CQ to number of target gene copies present we employed an absolute quantitation by a standard curve method. A standard highly similar to the target gene and with a known copy number was prepared in 10-fold dilution standard series. The dilution reduced the copy numbery by a factor of $\mathrm{10^{-1}}$ for each step.  Standard series and genomic DNA underwent the same thermal cycles in the same master mix. The CQ values of the standard series (y-axis) were plotted against the log10 transformed gene copy numbers (x-axis). The datapoints were fitted by a linear regression to create a standard curve. On the regression line, the CQ values of the genomic DNA samples were fitted and the $\mathrm{log_{10}}$ gene copy number determined. By back transforming the log10 gene copy number the true gene copy number in the sample was calculated. The standard curves quality was assessed by the slope value and the coefficient of determination (R2). A -3.32 slope would represent a difference in 3.32 cycles between two adjacent 10-fold dilutions. When the PCR is 100% efficient and each cycle the DNA concentration is doubled, it would theoretically takes 3.32 cycles for a 10-1 dilution to reach the 100  in gene copy numbers. 
+
+### Synthetic gene fragments as standards 
+As standards, synthetically produced gene fragments matching the target gene sequences by gBlocks (Integrated DNA Technologies, Coralville, IA, USA) were
+ordered. The fragment was delivered dry, resuspended in the laboratory and the gene fragments concentration measured in Qubit (Thermo Fischer Scientific). The
+gene copy number of the fragment was calculated using the following formula. Where C is the concentration in $\frac{ng}{\mu l}$ and M the molecular weight $\frac{fmol}{ng}$ of the gene fragment. $(1 x 10^{-15}\frac{mol}{fmol})$ is the conversion factor from mol to fmol.
+
+\begin{equation} 
+Gene\:Fragment[\frac{copy number}{\mu l}]=(C)*(M)*(1 x 10^{-15}\frac{mol}{fmol})*(Avogadro's\: number)
+\end{equation} 
+The initial suspension of the gene fragment was diluted 10X into a working stock solution. We prepared the working stock to a standard series in an eight step 10X serial dilution.  The sequence of the gene fragment was sourced by aligning the primer sets (Table 2) to the genome sequence of a suitable candidate microorganism . Suitability was determined by: (1) Bacteria/ Archaea has amoA, (2) Bacteria/ Archaea appears in soils, (3) type or reference strain (4) genome fully sequenced and sequence data available. As a 16s rRNA sequence a well-studied type strain from the bovine rumen was used. The source microorganisms are listed in Table 4. At both ends target genes sequence 50 basepairs of non-coding region from the source was added to improve similarity to the target genes sequence in the genomic DNA of the samples.
+
+```{r Standards, echo=FALSE, message=FALSE}
+library(kableExtra)
+stdseq %>%
+   kbl(booktabs = T,
+       escape = F, 
+       caption = "Sources of sequences for synthetically produced gene fragments. Genomes of the sources were aligned with primer sets to retrieve sequences. Sequences were produced to gene fragments by \\textit{gBlocks}.",
+       col.names = linebreak(c("Target", "Kingdom","Species\nname", "ID", "Length of\nstandard +\noverhang(bp)", "Length of \ngene target\n(bp)"),
+       align = "l")
+       )
+  #footnote(general= table_note, 
+           #general_title = "Note.", footnote_as_chunk = T, threeparttable = T) #enforces linebreak for footnote
+```
+### Assay design of quantitative polymerase chain reaction runs 
+The qPCRs were performed in a 7500 Fast Real-Time PCR System (Applied Biosystems™) with 96-wells. The layout of the 96-wells was programmed, the raw data analyzed and exported with SDS software. ROX was set as a passive reference.  Each sample and dilution of the standard series was run in three technical replicates (triplicates). Each target gene was analyzed in separate qPCR runs. On each plate a standard curve was produced. Due constrained wells per plate, technical replication and standard series the samples were grouped into qPCR runs by timepoint and sample source. Luna® Universal qPCR Master Mix (M3003, New England Biolabs, MA, USA) was used as a master mix containing dNTPs, Hot Start Taq DNA Polymerase, polymerase co-factors and SYBR Green.  For one reaction 10 µl of master mix, 0.5 µl of the forward primer (10 µM), 0.5 µl of the reverse primer (10 µM) and 1 µl of nuclease-free water was mixed with 8 µl DNA template. The reaction mix (master mix, primers and nuclease-free water) was prepared in sterile tubes for the number of templates to be tested, 2 negative controls (containing nuclease-free water instead of DNA templates) and plus 10% buffer. 12 µl of the vortexed reaction mix was added to the wells. First, one negative control was pipetted with 8 µl of nuclease-free water and closed off. After that, DNA-templates, standard series and the remaining negative control was pipetted. The controls were pipetted separately to track whether an amplification in the negative control was due to DNA contamination in the master mix or cross contamination while pipetting standard and templates. The plate was sealed, vortexed and centrifuged before running the thermal cycles in the qPCR instrument. The product of the quantitative polymerase chain reaction was verified on a melt curve on the qPCR instrument. Additionally, while designing the assay, the products were run on a 1.25% agarose gel electrophoresis and verified by matching with the standard. If in preliminary assay runs an unspecific amplification occurred, the thermal cycle program was adapted and cross-validated in a regular thermal cycler. Products of the same sample that underwent same thermal cycling in different cyclers were matched in a gel electrophoresis. Pipetting of the well plate and master mix was done in a PCR workbench. The workbench was cleaned with UV-light and 70% ethanol. 
+
+### Inhibition of polymerase chain reaction by co-extracted contaminants in templates
+In environmental samples compounds are present that can interfere with the polymerase chain reaction at different levels. Humic acids are ubiquitously presentin soils and are co-extracted with the genomic DNA from soil samples. These acids interact with the DNA Taq polymerase and slows down the enzymatic reaction. They can bind Mg2+, cause them to precipitate and thus lowering the magnesium concentration in the solution. MgCl2 is an important co-factor of the Taq polymerase and less concentration results in a lower polymerase activity (Schrader et al. 2012; Abbaszadegan et al. 1993).
+For each target gene samples were randomly chosen to test for their inhibition of the quantitative polymerase chain reaction. A five-step 10X serial dilution series was prepared of the working stock solution of the genomic DNA solution. The inhibition assay was ran as described as in (ASSAY DESIGN) with a five-step standard series and a no-template control. Theoretically, under no inhibition and 100% efficiency the DNA amount is double every cycle. It will take 3.32 cycles for a 10X dilution to reach the DNA concentration of the original solution. Therefore, if between dilutions a difference in CQ between 3.0 – 3.6 was detected, the dilution range between them was considered as suitable for the detection of target genes. 
+
+### Evaluation of raw qPCR data 
+Triplicates with a CQ standard deviation ≥ 0.5 were flagged by the SDS software and inspected manually. The replicates with a more similar CQ Value were grouped and contrasted to the outlier. Their melt curves were overlaid and determined if the divergent CQ originated from no amplification, unspecific amplification or primer dimer formation. Primer dimer are possible if the 3’ end of the primer set are complementary. The forward and reverse primer anneal to each other and the DNA-polymerase elongates in 5’ direction of the forward and reverse primer. The result is a short double-stranded gene fragment matching both the forward and reverse primer.  SYBR Green stains the primer dimer, resulting in a fluorescence signal detected by the qPCR instrument. The short length of the dimer as compared to the target gene is detectable in a lower melting point spike of about 10-15°C. 
+Negative controls were inspected if the qPCR instrument detected a fluorescence signal. The melt curve was analyzed for amplification of target genes. If in both negative controls a specific product of the target gene was detectable, the run was repeated. A gene product in the negative control pipetted before all DNA templates implies a contamination in the reaction mix, which falsifies the signal of all samples. The run was repeated. A detectable fluorescence signal and a product in the melt curve of the negative control pipetted last was analyzed separately. Only If a target gene product and a difference of CQ of <5 to the sample with the highest CQ was detected, the run was repeated. 
+
+### Calculation of gene copy numbers per µl DNA 
+The CQ and raw gene copy numbers were extracted from the SDS software. The raw data was loaded into in RStudio (Version 1.3.1073) and the gene copy numbers averaged for each sample across their technical replicates. The make the values comparable the raw gene copy numbers were recalculated as gene copy numbers per nanogram genomic DNA. The raw gene copy number is multiplied with the inverse value of the dilution used and divided by the amount of template DNA added to each well. The product is then divided by the DNA concentration of the sample.  
+
+$$ Gene\:copy\:number=\frac{\frac{Raw\:gene\:copy\:number*Dilution^{-1}}{Amount\:of\:template\:used\:(\mu l)}}{DNA\:conc.(\frac{ng}{\mu l})}$$
+## Data evaluation
+The effects of the fertilizers, fungicides and growth regulators were evaluated in a suitable statistical model. Fertilizers were grouped into one effect variable, fungicides and growth regulator into the other effect variable. Both variables are categorical qualitative variables coded as Yes = Application and No = No Application. Fertilizers and Fungicide + Growth 
+
+```{r structure, echo=FALSE, message=FALSE, fig.cap="Structure of the data"}
+library(knitr)
+include_graphics("figure/structure.png")
+```
+Regulators were crossed resulting in three treatments and one control: (1) Fertilizer, (2) Fungicides + Growth regulators, (3) Fertilizer and Fungicides + Growth regulators.  The variables are fixed effects. Treatment was randomly allocated on plots within complete blocks. The treatments and control are replicated five times (n=5) but measured at two time points. The measurements of the same plot are correlated.
+There are two sample sources ‘rhizosphere’ and ‘soil’ which are analyzed separately.  The blocks were established to capture possible gradients within the field and increase accuracy of the data. Theoretical gradients in the field that made blocking relevant could be nutrients, water availability, microorganism community structure, rhizodeposition, shading, pH and carbon. For each ‘Rhizosphere’ and ‘soil’ sample a plot on five random representative locations was sampled and merged into one sample. Each plot was sampled a second time.
+Due to the application of another dosage of fungicide (1,0 l/ha Seguris®) between t1 and t2 a higher correlation between affected plots may be higher than others.
+
+### Statistical analysis 
+A linear multi-level model accounting for all the levels depicted is proposed to evaluate the data generated in this experiment. The focus of the analysis is on the fixed effects i.e. fertilizers and fungicide + growth regulators on the response variable. Here, the response variable it is the gene copy number of the target genes in the genomic DNA. Target genes are evaluated separately, because they are different variables. The stastical model for one observation of gene copy numbers of a specific target gene can be formulated as:
+
+$$ y_{ijkl}=\mu + \alpha_i+\beta_j+\tau_l+(\alpha \beta)_{11}+ (\alpha \tau)_{1l}+ (\beta \tau)_{1l}+b_k+\xi_{ijkl}$$
+
+where $y_{ijkl}$ the dependent variable gene copy numbers at i-th fertilizer level, at j-th fungicide + growth regulator level in k-th block at l-th timepoint. The general effect $\mu$, is the general effect or the population mean of the target gene (N=20). $\alpha_i$ the effect of fertilizer and $\beta_j$ the effect of fungicides + growth regulators. The subscripts i and j are dummy coded, as both variables are categorical, as 0 = No application and 1 = Application. $\tau_l$ is the timepoint, $(\alpha \beta)_{11}$ is the interaction of fertilizer, fungicides and growth regulators. $(\alpha \tau)_{1l}$ and $(\beta \tau)_{1l}$ the interaction of the main effects with timepoint. $b_k$ is the block effect (k = 1-5) and $\xi_{ijkl}$ is the residual error associated with the observation. 
+
+#### Integration of model into R 
+Fertilizer and fungicides + growth regulators, α and β, are fixed effects, because they were applied as treatments and are nearly constant. Their effect is fixed to their levels. A special case of is the timepoint, τ_l. Microorganisms will multiply over time, especially when energy sources and symbiotic partners (i.e. the wheat crops) are present. Timepoint is nested within plots (i.e. same plots were sampled twice) and are therefore correlated 
+Block, b_k,  is a random effect. It is not known how the block influences the dependent variable. Therefore, a mixed model including both fixed and random effects is used to evaluate the data. 
+To integrate both effect types into a model the package ‘lme4’ (version 1.1-26) in RStudio was used. The model was iterated with the least amount of effects and then updated with the random effects, fixed effects and interaction effect. 
+The full model with the lmer function of ‘lme4’ was coded as:
+`model <- lmer(genecopy.number ~ fertilizer*fungicides*time + (1|block), data = data.frame)`
+
+‘Genecopy.number’ is the dependent variable and the model tries to predict by `fertilizer`, `fungicide` and `fertilizer*fungicide`. The `fertilizer*fungicide` variable automatically fits the main effects (`fertilizer` + `fungicide`) and the interaction effect (`fertilizer*fungicide`). `(1|block)` adds a random intercept for block. This states that the fertilizer and fungicides effects have the same slope (i.e. effect) across blocks but intercept (i.e. general effect) for each block is different. `time` is treated as fixed effect here. Ideally, it would be treated as a random effect slope variable, which varies either between treatments or blocks. Because of the blocking of plots, the varying between treatments is not possible. 

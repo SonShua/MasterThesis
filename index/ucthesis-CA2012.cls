@@ -234,13 +234,10 @@
 
   \null\vfil
   \begin{center}
-    University of California \par \@campus \par
+    University of Hohenheim \par \@campus \par
     \bigskip \medskip \vspace{6ex}
     \fmfont {\bfseries \Large {\@title} \par}   % Formatting of the Dissertation title
     \bigskip \medskip \vspace{6ex}
-    A dissertation submitted in partial satisfaction  \par
-    \smallskip
-    of the requirements for the degree \par
     \bigskip {\@degree} \par
     \smallskip in \par
     \smallskip {\@field} \par

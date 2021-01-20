@@ -184,3 +184,13 @@ kbl(standard_com, booktabs = T, caption = "Comammox Standard ",
 ```
 
 Gene copy numbers of the comammox conserved region range from 290 to 3200 in the soil samples. Numbers are higher in the second timepoint for the control, fertilized and fungicide and growth regulator treated plots, except for one datapoint in the fertilized plots. The gene copy numbers in the fully treated plots are more condensed at both timepoints compared to the control and other treatments. The mean of differences in gene copy numbers of all treatments are negative compared to the control. The fully treated group has the most negative (-658) mean of difference, followed by the fertilized (-433) and fungicide + growth regulator treated group (-377). The fully treated group has negative upper and lower limits of their confidence interval.The other two treatment groups have a negative lower CI limit but a positive upper CI limit. 
+
+```{r soilcom, echo=FALSE, fig.cap="Soil Commamox archaea estimation"}
+soilcom
+```
+
+In the rhizosphere samples the gene copy numbers of the comammox conserved region range from 340 - 3700. The maximal gene copy numbers observed is 1312 in the first timepoint. While in the second timepoint it is 3700. The mean of differences in gene copy numbers of all treatments are negative compared to the control. . The fully treated group has the most negative (-685) mean of difference, followed by the fertilized (-346) and fungicide + growth regulator treated group (-160). All confidence intervals have a negative lower limit with a positive upper limit. The ascending order for both limits remains for both limits. 
+
+```{r rhizocom, echo=FALSE, fig.cap="Rhizo Commamox archaea estimation"}
+rhizocom
+```
